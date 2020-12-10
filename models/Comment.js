@@ -7,7 +7,7 @@ const blockSchema = new Schema({
   question: String,
   owner: { type: Schema.Types.ObjectId, ref: 'User' },
   parentBlock: String,
-  creationDate: Date,
+  creationDate: { type: Date, default: Date.now },
   ideas: []
 });
 

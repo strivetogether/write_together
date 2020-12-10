@@ -5,7 +5,7 @@ const ideaSchema = new Schema({
   comments: [],
   owner: { type: Schema.Types.ObjectId, ref: 'Block' },
   parentBlock: String,
-  creationDate: Date,
+  creationDate: { type: Date, default: Date.now }
 });
 
 const Idea = mongoose.model('Idea', ideaSchema);
