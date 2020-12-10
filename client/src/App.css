@@ -28,6 +28,25 @@
   color: #61dafb;
 }
 
+.nav a {
+  color: white;
+}
+
+.nav a:hover {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.projects-container {
+  display: flex;
+  padding: 5vh 5vw;
+}
+
+.projects-container > * {
+  flex: 1;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
