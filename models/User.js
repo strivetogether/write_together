@@ -7,7 +7,7 @@ const userSchema = new Schema({
   profilePicture: String,
   owner: String,
   blocks: [ { type: Schema.Types.ObjectId, ref: 'Block' } ],
-  ideas: [ { type: Schema.Types.ObjectId, ref: 'Idea' } ]
+  ideas: [ { type: Schema.Types.ObjectId, ref: 'Idea' } ],
 });
 
 const User = mongoose.model('User', userSchema);
