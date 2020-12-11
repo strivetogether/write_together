@@ -8,6 +8,7 @@ import Signup from './components/Signup';
 // import Login from './components/Login';
 import Navbar from './components/Navbar';
 import AddBlock from './components/AddBlock';
+import Login from './components/Login';
 
 
 
@@ -27,6 +28,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
+      
         <Navbar user={this.state.user} setUser={this.setUser}/>
 
         <Route
@@ -35,6 +37,14 @@ class App extends React.Component {
         render={props => {
         if (this.state.user) return <AddBlock {...props}/>
         else return <Redirect to='/signup' />
+        }}
+        />
+
+        <Route
+        exact
+        path='/blockdetails'
+        render={props => {
+        <AddBlock {...props}/>
         }}
         />
 
@@ -49,6 +59,13 @@ class App extends React.Component {
           // instead of implementing its own render logic.
           render={props => <Signup setUser={this.setUser} {...props} />}
         />
+
+        <Route
+          exact
+          path='/login'
+          render={props => <Login setUser={this.setUser} {...props} />}
+        />
+
 
         {/* <AddBlock /> */}
         {/* </Route> */}
