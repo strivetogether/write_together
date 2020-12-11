@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Block = require('../models/Block');
+const User = require('../models/User');
 
 
 
@@ -20,7 +21,7 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res) => {
   const { title, text } = req.body;
   const owner = req.user._id;
-  const tasks = [];
+  const ideas = [];
   // const owner = req.user._id;
   Block.create({
     title,
@@ -28,10 +29,16 @@ router.post('/', (req, res) => {
     owner,
     ideas,
   })
-    .then(project => {
-      res.status(201).json(project);
+    .then(block => {
+      console.log('CONSOLE LOG:', req.user.blocks, block._id)
+     User.findByIdAndUpdate(owner, { $push: { blocks:  block._id }}, { new : true })
+     .then(user => {
+      res.status(201).json({user, block}); //We can send only one argument
+      // In our response we will have response.data.user and response.data.block
+     })   
     })
     .catch(err => {
+      console.log('ERROR', err)
       res.json(err);
     })
 })
