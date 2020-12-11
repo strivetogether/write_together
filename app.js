@@ -10,6 +10,8 @@ const logger       = require('morgan');
 const path         = require('path');
 
 
+
+
 mongoose
   .connect('mongodb://localhost/strive-together', {useNewUrlParser: true})
   .then(x => {
@@ -22,7 +24,29 @@ mongoose
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
+//Passport and express session configuration
+
+const session = require('express-session');
+const passport = require('passport');
+
+require('./configs/passport');
+
+const MongoStore = require('connect-mongo')(session);
+
 const app = express();
+
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Middleware Setup
 app.use(logger('dev'));
@@ -56,6 +80,9 @@ app.locals.title = 'Overcome your writing block together!';
 
 const blocks = require('./routes/blocks');
 app.use('/api/blocks', blocks);
+
+const auth = require('./routes/auth');
+app.use('/api/auth', auth);
 
 
 module.exports = app;
