@@ -33,7 +33,8 @@ router.post('/', (req, res) => {
       console.log('CONSOLE LOG:', req.user.blocks, block._id)
      User.findByIdAndUpdate(owner, { $push: { blocks:  block._id }}, { new : true })
      .then(user => {
-      res.status(201).json({user, block}); //We can send only one argument
+      res.status(201).json({user, block}); 
+      //We can send only one argument
       // In our response we will have response.data.user and response.data.block
      })   
     })
