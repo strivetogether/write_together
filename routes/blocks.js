@@ -45,8 +45,8 @@ router.post('/', (req, res) => {
 })
 
 // access one block's details
-router.get('/:id', (req, res) => {
-  Block.findById(req.params.id)
+router.get('/details/:blockid', (req, res) => {
+  Block.findById(req.params.blockid)
     .then(block => {
       if (!block) {
         res.status(404).json(block);
@@ -60,12 +60,12 @@ router.get('/:id', (req, res) => {
 })
 
 // get all specific user blocks
-router.get('/blocks/:userid', (req, res) => {
+router.get('/userblocks/:userid', (req, res) => {
 
   Block.find({owner: req.params.userid})
     .then(block => {
       // console.log('This is the blocks ID thingy', req.params.id)
-      console.log('This is the userid thingy', req.params.userid)
+      // console.log('This is the userid thingy', req.params.userid)
       if (!block) {
         res.status(404).json(block);
       } else {
@@ -78,7 +78,7 @@ router.get('/blocks/:userid', (req, res) => {
 })
 
 // delete block
-router.delete('/blocks/delete/:id', (req, res, next) => {
+router.delete('/delete/:id', (req, res, next) => {
   Block.findByIdAndDelete(req.params.id)
     .then(block => {
       res.status(200).json({ message: 'Block deleted' })
