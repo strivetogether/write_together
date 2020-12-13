@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Block = require('../models/Block');
 const User = require('../models/User');
-
+const Idea = require('../models/Idea');
 
 
 // get all blocks 
@@ -58,6 +58,37 @@ router.get('/details/:blockid', (req, res) => {
       res.json(err);
     })
 })
+
+// create an idea and attach it to a specific block
+router.post('/details/:blockid/addidea', (req, res) => {
+  const { text } = req.body;
+  const owner = req.user._id;
+  //will this work with the blockid? let's find out!
+  const parentBlock = req.params.blockid;
+  const comments = [];
+  // const owner = req.user._id;
+  Idea.create({
+    text,
+    owner,
+    parentBlock,
+    comments
+  })
+    .then(idea => {
+      console.log('CONSOLE LOG:', req.user.ideas, idea._id)
+     User.findByIdAndUpdate(owner, { $push: { ideas:  idea._id }}, { new : true }) // add idea to owner
+     Block.findByIdAndUpdate(parentBlock, { $push: { ideas:  idea._id }}, { new : true }) // add idea to block
+     .then(user => {
+      res.status(201).json({user, idea}); 
+      //We can send only one argument
+      // In our response we will have response.data.user and response.data.block
+     })   
+    })
+    .catch(err => {
+      console.log('ERROR', err)
+      res.json(err);
+    })
+})
+
 
 // get all specific user blocks
 router.get('/userblocks/:userid', (req, res) => {
