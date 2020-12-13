@@ -60,7 +60,7 @@ router.get('/:id', (req, res) => {
 })
 
 // get all specific user blocks
-router.get('/blocks/:userid/', (req, res) => {
+router.get('/blocks/:userid', (req, res) => {
   Block.find({owner: req.params.id})
     .then(block => {
       if (!block) {
@@ -75,7 +75,7 @@ router.get('/blocks/:userid/', (req, res) => {
 })
 
 // delete block
-router.post('blocks/delete/:id', (req, res, next) => {
+router.delete('/delete/:id', (req, res, next) => {
   Block.findByIdAndDelete(req.params.id)
     .then(block => {
       res.status(200).json({ message: 'Block deleted' })
@@ -84,7 +84,6 @@ router.post('blocks/delete/:id', (req, res, next) => {
       res.json(err);
     })
 });
-
 
 
 
