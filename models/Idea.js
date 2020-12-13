@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ideaSchema = new Schema({
+  text: String,
   comments: [],
-  owner: { type: Schema.Types.ObjectId, ref: 'Block' },
-  parentBlock: String,
+  owner: { type: Schema.Types.ObjectId, ref: 'User' },
+  parentBlock: { type: Schema.Types.ObjectId, ref: 'Block' },
   creationDate: { type: Date, default: Date.now }
 });
 

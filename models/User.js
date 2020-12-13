@@ -5,7 +5,6 @@ const userSchema = new Schema({
   username: String,
   password: String,
   profilePicture: String,
-  owner: String,
   blocks: [ { type: Schema.Types.ObjectId, ref: 'Block' } ],
   ideas: [ { type: Schema.Types.ObjectId, ref: 'Idea' } ],
 });

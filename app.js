@@ -78,6 +78,9 @@ app.locals.title = 'Overcome your writing block together!';
 // const index = require('./routes/index');
 // app.use('/', index);
 
+const ideas = require('./routes/ideas');
+app.use('/api/ideas', ideas);
+
 const blocks = require('./routes/blocks');
 app.use('/api/blocks', blocks);
 
