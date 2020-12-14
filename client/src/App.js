@@ -36,7 +36,7 @@ class App extends React.Component {
       
         <Navbar user={this.state.user} setUser={this.setUser}/>
         <Editor
-        // apiKey=process.env.REACT_APP_TINY_ID
+        apiKey={process.env.REACT_APP_TINY_ID}
          initialValue="<p>This is the initial content of the editor</p>"
          init={{
            height: 500,
