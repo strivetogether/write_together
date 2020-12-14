@@ -86,6 +86,7 @@ export default class AddBlock extends Component {
           initialValue="<p>This is the initial content of the editor</p>"
           init={{
            height: 500,
+           fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
            menubar: false,
            plugins: [
              'advlist autolink lists link image charmap print preview anchor',
@@ -95,7 +96,7 @@ export default class AddBlock extends Component {
            toolbar:
              'undo redo | formatselect | bold italic backcolor | \
              alignleft aligncenter alignright alignjustify | \
-             bullist numlist outdent indent | removeformat | help'
+             bullist numlist outdent indent | removeformat | help |  fontsizeselect'
          }}
          onEditorChange={this.handleTextChange}
         />
@@ -112,6 +113,7 @@ export default class AddBlock extends Component {
           initialValue="<p>This is the initial content of the editor</p>"
           init={{
            height: 500,
+           fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
            menubar: false,
            plugins: [
              'advlist autolink lists link image charmap print preview anchor',
@@ -121,7 +123,7 @@ export default class AddBlock extends Component {
            toolbar:
              'undo redo | formatselect | bold italic backcolor | \
              alignleft aligncenter alignright alignjustify | \
-             bullist numlist outdent indent | removeformat | help'
+             bullist numlist outdent indent | removeformat | help |  fontsizeselect'
          }}
          onEditorChange={this.handleQuestionChange}
         />

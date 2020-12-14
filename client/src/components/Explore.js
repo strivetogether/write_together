@@ -12,9 +12,9 @@ export default class Explore extends Component {
         {this.props.blocks.map(block => {
         return (
           <div key={block._id}>
-            <h3>
+            <h2>
               <Link to={`/blocks/${block._id}`}>{block.title}</Link>
-            </h3>
+            </h2>
           </div>
         )
       })}
