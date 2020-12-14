@@ -8,6 +8,7 @@
     "dev-windows": "nodemon ./bin/www"
   },
   "dependencies": {
+    "@tinymce/tinymce-react": "^3.6.0",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "connect-mongo": "^3.2.0",
