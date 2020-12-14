@@ -9,7 +9,7 @@ import Signup from './components/Signup';
 import Navbar from './components/Navbar';
 import AddBlock from './components/AddBlock';
 import Login from './components/Login';
-
+import { Editor } from '@tinymce/tinymce-react';
 
 
 
@@ -25,12 +25,34 @@ class App extends React.Component {
     })
   }
 
+//tinymce's own method
+  handleEditorChange = (content, editor) => {
+    console.log('Content was updated:', content);
+  }
+
   render() {
     return (
       <div className="App">
       
         <Navbar user={this.state.user} setUser={this.setUser}/>
-
+        <Editor
+        // apiKey=process.env.REACT_APP_TINY_ID
+         initialValue="<p>This is the initial content of the editor</p>"
+         init={{
+           height: 500,
+           menubar: false,
+           plugins: [
+             'advlist autolink lists link image charmap print preview anchor',
+             'searchreplace visualblocks code fullscreen',
+             'insertdatetime media table paste code help wordcount'
+           ],
+           toolbar:
+             'undo redo | formatselect | bold italic backcolor | \
+             alignleft aligncenter alignright alignjustify | \
+             bullist numlist outdent indent | removeformat | help'
+         }}
+         onEditorChange={this.handleEditorChange}
+       />
         <Route
         exact
         path='/addblock'
