@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Interweave from 'interweave';
 
 
 export default class BlockDetails extends Component {
@@ -45,12 +46,13 @@ export default class BlockDetails extends Component {
       if (this.state.error) return <h1>{this.state.error}</h1>
       if (!this.state.block) return <h1>Loading...</h1>
 
+      
+
       return (
         <div>
-          <h1>{this.state.title}</h1>
-          <p>{this.state.text}</p>
-          <p>{this.state.question}</p>
-
+          <Interweave content={this.state.title} />
+          <Interweave content={this.state.text} />
+          <Interweave content={this.state.question} />
           
           {/* 
           Another way to do it is adding block and accesing it directly.

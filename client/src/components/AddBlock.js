@@ -48,21 +48,21 @@ export default class AddBlock extends Component {
   }
 
     //tinymce's own method
-    handleEditorChange = (text, editor) => {
+    handleTextChange = (text, editor) => {     
       this.setState({ text: text});
-      console.log('Content was updated:', text);
+      // console.log('Content was updated:', text);
+    }
+
+    handleQuestionChange = (question, editor) => {
+      this.setState({ question: question});
+      // console.log('Content was updated:', text);
     }
 
   render() {
     console.log('HERE WE ARE 2')
     return (
       
-
         <Form onSubmit={this.handleSubmit}>
-
-        
-
-
 
         <Form.Group>
           <Form.Label htmlFor='title'>Title: </Form.Label>
@@ -97,19 +97,34 @@ export default class AddBlock extends Component {
              alignleft aligncenter alignright alignjustify | \
              bullist numlist outdent indent | removeformat | help'
          }}
-         onEditorChange={this.handleEditorChange}
+         onEditorChange={this.handleTextChange}
         />
         </Form.Group>
 
         <Form.Group>
-          <Form.Label htmlFor='question'>What's your block?: </Form.Label>
-          <Form.Control
-            type='text'
-            id='question'
-            name='question'
-            value={this.state.question}
-            onChange={this.handleChange}
-          />
+          <Form.Label htmlFor='text'>Your text so far: </Form.Label>
+          <Editor
+          apiKey={process.env.REACT_APP_TINY_ID}
+          type="text"
+          name="question"
+          value={this.state.question}
+          id="question"
+          initialValue="<p>This is the initial content of the editor</p>"
+          init={{
+           height: 500,
+           menubar: false,
+           plugins: [
+             'advlist autolink lists link image charmap print preview anchor',
+             'searchreplace visualblocks code fullscreen',
+             'insertdatetime media table paste code help wordcount'
+           ],
+           toolbar:
+             'undo redo | formatselect | bold italic backcolor | \
+             alignleft aligncenter alignright alignjustify | \
+             bullist numlist outdent indent | removeformat | help'
+         }}
+         onEditorChange={this.handleQuestionChange}
+        />
         </Form.Group>
 
         <Button type='submit'>Add a Project</Button>
