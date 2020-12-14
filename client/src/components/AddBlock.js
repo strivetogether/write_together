@@ -3,14 +3,16 @@ import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 
+console.log('HERE WE ARE')
 
-
-export default class Block extends Component {
+export default class AddBlock extends Component {
 
   state = {
     title: '',
-    text: ''
+    text: '',
+    question: '',
   }
+  
 
   handleChange = event => {
     const name = event.target.name;
@@ -26,14 +28,17 @@ export default class Block extends Component {
     console.log(this.state);
     axios.post('/api/blocks', {
       title: this.state.title,
-      text: this.state.text
+      text: this.state.text,
+      question: this.state.question,
     })
       .then(() => {
         // set the form to it's initial state (empty input fields)
         this.setState({
           title: '',
-          text: ''
+          text: '',
+          question: '',
         })
+        this.props.getData();
         // update the parent components state (in Projects) by calling getData()
         // this.props.getData();
       })
@@ -42,9 +47,11 @@ export default class Block extends Component {
   }
 
   render() {
-    return (      
+    console.log('HERE WE ARE 2')
+    return (  
         <Form onSubmit={this.handleSubmit}>
-        <h1>This is a block</h1>
+
+        
         <Form.Group>
           <Form.Label htmlFor='title'>Title: </Form.Label>
           <Form.Control
@@ -66,6 +73,18 @@ export default class Block extends Component {
             onChange={this.handleChange}
           />
         </Form.Group>
+
+        <Form.Group>
+          <Form.Label htmlFor='question'>What's your block?: </Form.Label>
+          <Form.Control
+            type='question'
+            id='question'
+            name='question'
+            value={this.state.question}
+            onChange={this.handleChange}
+          />
+        </Form.Group>
+
         <Button type='submit'>Add a Project</Button>
       </Form>
       

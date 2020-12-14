@@ -19,13 +19,14 @@ router.get('/', (req, res, next) => {
 
 // create a block
 router.post('/', (req, res) => {
-  const { title, text } = req.body;
+  const { title, text, question} = req.body;
   const owner = req.user._id;
   const ideas = [];
   // const owner = req.user._id;
   Block.create({
     title,
     text,
+    question,
     owner,
     ideas,
   })
@@ -58,6 +59,39 @@ router.get('/details/:blockid', (req, res) => {
       res.json(err);
     })
 })
+
+// get all specific user blocks
+router.get('/userblocks/:userid', (req, res) => {
+
+  Block.find({owner: req.params.userid})
+    .then(block => {
+      // console.log('This is the blocks ID thingy', req.params.id)
+      // console.log('This is the userid thingy', req.params.userid)
+      if (!block) {
+        res.status(404).json(block);
+      } else {
+        res.status(200).json(block);
+      }
+    })
+    .catch(err => {
+      res.json(err);
+    })
+})
+
+// delete block
+router.delete('/delete/:id', (req, res, next) => {
+  Block.findByIdAndDelete(req.params.id)
+    .then(block => {
+      res.status(200).json({ message: 'Block deleted' })
+    })
+    .catch(err => {
+      res.json(err);
+    })
+});
+
+
+///////
+
 
 // create an idea and attach it to a specific block
 router.post('/details/:blockid/addidea', (req, res) => {
@@ -93,34 +127,7 @@ router.post('/details/:blockid/addidea', (req, res) => {
 })
 
 
-// get all specific user blocks
-router.get('/userblocks/:userid', (req, res) => {
 
-  Block.find({owner: req.params.userid})
-    .then(block => {
-      // console.log('This is the blocks ID thingy', req.params.id)
-      // console.log('This is the userid thingy', req.params.userid)
-      if (!block) {
-        res.status(404).json(block);
-      } else {
-        res.status(200).json(block);
-      }
-    })
-    .catch(err => {
-      res.json(err);
-    })
-})
-
-// delete block
-router.delete('/delete/:id', (req, res, next) => {
-  Block.findByIdAndDelete(req.params.id)
-    .then(block => {
-      res.status(200).json({ message: 'Block deleted' })
-    })
-    .catch(err => {
-      res.json(err);
-    })
-});
 
 
 

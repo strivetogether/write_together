@@ -6,11 +6,11 @@ const Idea = require('../models/Idea');
 
 
 
-// get all blocks 
-router.get('/', (req, res, next) => {
-  Block.find()
-    .then(blocks => {
-      res.status(200).json(blocks);
+// get all ideas
+router.get('/allideas', (req, res, next) => {
+  Idea.find()
+    .then(ideas => {
+      res.status(200).json(ideas);
     })
     .catch(err => {
       res.json(err);
@@ -18,79 +18,21 @@ router.get('/', (req, res, next) => {
 
 });
 
-// // create an idea
-// router.post('/', (req, res) => {
-//   const { text } = req.body;
-//   const owner = req.user._id;
-//   //will this work with the blockid? let's find out!
-//   const parentBlock = req.params.blockid;
-//   const comments = [];
-//   // const owner = req.user._id;
-//   Idea.create({
-//     title,
-//     text,
-//     owner,
-//     ideas,
-//   })
-//     .then(block => {
-//       console.log('CONSOLE LOG:', req.user.blocks, block._id)
-//      User.findByIdAndUpdate(owner, { $push: { blocks:  block._id }}, { new : true })
-//      .then(user => {
-//       res.status(201).json({user, block}); 
-//       //We can send only one argument
-//       // In our response we will have response.data.user and response.data.block
-//      })   
-//     })
-//     .catch(err => {
-//       console.log('ERROR', err)
-//       res.json(err);
-//     })
-// })
+// get all specific user ideas
+router.get('/userideas/:userid', (req, res) => {
 
-// access one block's details
-router.get('/details/:blockid', (req, res) => {
-  Block.findById(req.params.blockid)
-    .then(block => {
-      if (!block) {
-        res.status(404).json(block);
+  Idea.find({owner: req.params.userid})
+    .then(idea => {
+      if (!idea ) {
+        res.status(404).json(idea);
       } else {
-        res.status(200).json(block);
+        res.status(200).json(idea);
       }
     })
     .catch(err => {
       res.json(err);
     })
 })
-
-// get all specific user blocks
-router.get('/userblocks/:userid', (req, res) => {
-
-  Block.find({owner: req.params.userid})
-    .then(block => {
-      // console.log('This is the blocks ID thingy', req.params.id)
-      // console.log('This is the userid thingy', req.params.userid)
-      if (!block) {
-        res.status(404).json(block);
-      } else {
-        res.status(200).json(block);
-      }
-    })
-    .catch(err => {
-      res.json(err);
-    })
-})
-
-// delete block
-router.delete('/delete/:id', (req, res, next) => {
-  Block.findByIdAndDelete(req.params.id)
-    .then(block => {
-      res.status(200).json({ message: 'Block deleted' })
-    })
-    .catch(err => {
-      res.json(err);
-    })
-});
-
 
 
 
