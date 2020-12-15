@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Editor } from '@tinymce/tinymce-react';
 
 
-console.log('HERE WE ARE')
+
 
 export default class AddBlock extends Component {
 
