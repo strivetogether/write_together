@@ -27,7 +27,7 @@ export default class Navbar extends Component {
 
         <>              
           <Nav.Brand>
-            <Link to='/'>Explore</Link>
+            <Link to='/explore'>Explore</Link>
           </Nav.Brand>
 
           <Nav.Brand>
@@ -43,7 +43,7 @@ export default class Navbar extends Component {
 
           <>
             <Nav.Brand>
-              <Link to='/'>Explore</Link>
+              <Link to='/explore'>Explore</Link>
             </Nav.Brand>
 
 

@@ -1,29 +1,69 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button } from 'react-bootstrap';
+import Interweave from 'interweave';
+
 
 export default class BlockDetails extends Component {
-  render() {
-    if (this.state.error) return <div>{this.state.error}</div>
-    if (!this.state.project) return (<></>)
 
-    // we set a boolean if there is a loggedInUser and the user is also the owner of the project
-    let allowedToDelete = false;
-    const user = this.props.user;
-    const owner = this.state.project.owner;
-    if (user && user._id === owner) allowedToDelete = true;
-
-    return (
-      <div>
-        <h1>{this.state.project.title}</h1>
-        <p>{this.state.project.description}</p>
-        {/* // then we only show the button if the the deletion is allowed  */}
-        {allowedToDelete && (
-          <Button variant="danger" onClick={this.deleteProject}>
-            Delete project
-          </Button>
-        )}
-      </div>
-    )
+  state = {
+    block: null,
+    error: null,
+    title: '',
+    text: '',
+    question: '',
   }
+
+  getData = () => {
+    const id = this.props.match.params.id;
+    console.log('ID LOG', id);
+    axios.get(`/api/blocks/details/${id}`)
+      .then(response => {
+        console.log('This is the response', response);
+        this.setState({
+          title: response.data.title,
+          text: response.data.text,
+          question: response.data.question,
+          block: response.data,
+        })
+      })
+      .catch(err => {
+        console.log(err.response)
+        if (err.response.status === 404) {
+          this.setState({
+            error: 'Sorry - Block Not found 🤷‍♀️ 🤷‍♂️'
+          })
+        }
+      })
+  }
+
+  componentDidMount = () => {
+    this.getData();
+  }
+
+
+    render() {
+      console.log('STATE LOG', this.state)
+      if (this.state.error) return <h1>{this.state.error}</h1>
+      if (!this.state.block) return <h1>Loading...</h1>
+
+      
+
+      return (
+        <div>
+          <Interweave content={this.state.title} />
+          <Interweave content={this.state.text} />
+          <Interweave content={this.state.question} />
+          
+          {/* 
+          Another way to do it is adding block and accesing it directly.
+          This way we don't have to set up the objeckt keys on the state.
+          <h1>{this.state.block.title}</h1>
+          <p>{this.state.block.text}</p> */}
+        </div>
+      )
+
+    }
+
+
 }
+

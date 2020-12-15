@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import { Route, Redirect } from 'react-router-dom';
@@ -9,6 +10,8 @@ import Signup from './components/Signup';
 import Navbar from './components/Navbar';
 import AddBlock from './components/AddBlock';
 import Login from './components/Login';
+import Explore from './components/Explore';
+import BlockDetails from './components/BlockDetails';
 import { Editor } from '@tinymce/tinymce-react';
 
 
@@ -16,7 +19,8 @@ import { Editor } from '@tinymce/tinymce-react';
 class App extends React.Component {
 
   state = {
-    user: this.props.user
+    user: this.props.user,
+    blocks: []
   }
 
   setUser = user => {
@@ -25,16 +29,33 @@ class App extends React.Component {
     })
   }
 
-//tinymce's own method
-  handleEditorChange = (content, editor) => {
-    console.log('Content was updated:', content);
+  getData = () => {
+    // get the current list of projects from the server
+    axios.get('/api/blocks')
+      .then(response => {
+        // put them into the state
+        this.setState({
+          blocks: response.data
+        })
+      })
+      .catch(err => console.log(err))
   }
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  // //tinymce's own method
+  // handleEditorChange = (content, editor) => {
+  //   console.log('Content was updated:', content);
+  // }
 
   render() {
     return (
       <div className="App">
       
         <Navbar user={this.state.user} setUser={this.setUser}/>
+{/* 
         <Editor
         apiKey={process.env.REACT_APP_TINY_ID}
          initialValue="<p>This is the initial content of the editor</p>"
@@ -52,12 +73,13 @@ class App extends React.Component {
              bullist numlist outdent indent | removeformat | help'
          }}
          onEditorChange={this.handleEditorChange}
-       />
+       /> */}
+
         <Route
         exact
         path='/addblock'
         render={props => {
-        if (this.state.user) return <AddBlock {...props}/>
+        if (this.state.user) return <AddBlock getData={this.getData} {...props}/>
         else return <Redirect to='/signup' />
         }}
         />
@@ -66,7 +88,7 @@ class App extends React.Component {
         exact
         path='/blockdetails'
         render={props => {
-        <AddBlock {...props}/>
+        <BlockDetails {...props}/>
         }}
         />
 
@@ -88,6 +110,17 @@ class App extends React.Component {
           render={props => <Login setUser={this.setUser} {...props} />}
         />
 
+        <Route
+          exact
+          path='/explore'
+          render={props => <Explore setUser={this.setUser} blocks={this.state.blocks} {...props} />}
+        />
+
+        <Route
+          exact
+          path='/blocks/:id'
+          render={props => <BlockDetails setUser={this.setUser} {...props} />}
+        />
 
         {/* <AddBlock /> */}
         {/* </Route> */}
@@ -96,27 +129,5 @@ class App extends React.Component {
   }
 }
 
-
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default App;

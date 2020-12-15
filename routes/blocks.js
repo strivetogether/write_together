@@ -19,13 +19,14 @@ router.get('/', (req, res, next) => {
 
 // create a block
 router.post('/', (req, res) => {
-  const { title, text } = req.body;
+  const { title, text, question} = req.body;
   const owner = req.user._id;
   const ideas = [];
   // const owner = req.user._id;
   Block.create({
     title,
     text,
+    question,
     owner,
     ideas,
   })
@@ -59,40 +60,6 @@ router.get('/details/:blockid', (req, res) => {
     })
 })
 
-// create an idea and attach it to a specific block
-router.post('/details/:blockid/addidea', (req, res) => {
-  const { text } = req.body;
-  const owner = req.user._id;
-  //will this work with the blockid? let's find out!
-  const parentBlock = req.params.blockid;
-  const comments = [];
-  // const owner = req.user._id;
-  Idea.create({
-    text,
-    owner,
-    parentBlock,
-    comments
-  })
-    .then(idea => {
-     Block.findByIdAndUpdate(parentBlock, { $push: { ideas:  idea._id }}, { new : true }) // add idea to block
-    .then(block => {
-      console.log("this is idea right now", idea)
-    //   console.log("this is block.owner right now", block.owner);
-      User.findByIdAndUpdate(block, { $push: { ideas: idea }}, { new : true }) // add idea's id to owner
-     .then(user => {
-      res.status(201).json({user, idea}); 
-      //We can send only one argument
-      // In our response we will have response.data.user and response.data.block
-     })   
-    })
-  })
-    .catch(err => {
-      console.log('ERROR', err)
-      res.json(err);
-    })
-})
-
-
 // get all specific user blocks
 router.get('/userblocks/:userid', (req, res) => {
 
@@ -121,6 +88,46 @@ router.delete('/delete/:id', (req, res, next) => {
       res.json(err);
     })
 });
+
+
+///////
+
+
+// create an idea and attach it to a specific block
+router.post('/details/:blockid/addidea', (req, res) => {
+  const { text } = req.body;
+  const owner = req.user._id;
+  //will this work with the blockid? let's find out!
+  const parentBlock = req.params.blockid;
+  const comments = [];
+  // const owner = req.user._id;
+  Idea.create({
+    text,
+    owner,
+    parentBlock,
+    comments
+  })
+    .then(idea => {
+     Block.findByIdAndUpdate(parentBlock, { $push: { ideas:  idea._id }}, { new : true }) // add idea to block
+    .then(block => {
+      console.log("this is a block right now", block)
+    //   console.log("this is block.owner right now", block.owner);
+      User.findByIdAndUpdate(block.owner, { $push: { ideas: idea._id }}, { new : true }) // add idea's id to owner
+     .then(user => {
+      res.status(201).json({idea}); 
+      //We can send only one argument
+      // In our response we will have response.data.user and response.data.block
+     })   
+    })
+  })
+    .catch(err => {
+      console.log('ERROR', err)
+      res.json(err);
+    })
+})
+
+
+
 
 
 
