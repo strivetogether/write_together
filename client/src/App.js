@@ -21,7 +21,7 @@ class App extends React.Component {
   state = {
     user: this.props.user,
     blocks: [],
-    ideas: [],
+    // ideas: [],
   }
 
   setUser = user => {
@@ -41,14 +41,14 @@ class App extends React.Component {
       })
       .catch(err => console.log(err))
 
-    axios.get('/api/ideas/allideas')
-      .then(response => {
-        // put them into the state
-        this.setState({
-          ideas: response.data
-        })
-      })
-      .catch(err => console.log(err))
+    // axios.get('/api/ideas/allideas')
+    //   .then(response => {
+    //     // put them into the state
+    //     this.setState({
+    //       ideas: response.data
+    //     })
+    //   })
+    //   .catch(err => console.log(err))
     
   }
 
@@ -62,7 +62,7 @@ class App extends React.Component {
   // }
 
   render() {
-    console.log('GET IDEAS DATA', this.state.ideas)
+    console.log('GET IDEAS DATA', this.state)
     return (
       <div className="App">
       

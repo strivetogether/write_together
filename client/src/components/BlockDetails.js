@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Markup } from 'interweave';
 import Interweave from 'interweave';
 import { Form, Button } from 'react-bootstrap';
 import { Editor } from '@tinymce/tinymce-react';
@@ -55,9 +56,9 @@ export default class BlockDetails extends Component {
       .then(() => {
         // set the form to it's initial state (empty input fields)
         this.setState({
-          text: '',
+          ideaText: '',
         })
-        this.props.getData();
+        this.getBlock();
         // update the parent components state (in Projects) by calling getData()
         // this.props.getData();
       })
@@ -71,31 +72,39 @@ export default class BlockDetails extends Component {
         // console.log('Content was updated:', text);
       }
 
+      //find ideas' creator
+      // handleGetIdeaCreator = () => {
+      //   User.findById(idea.owner)
+      //   .then
+
+      // }
+
     render() {
-      console.log('BLOCKSLOG', this.props)
+      // console.log('BLOCKSLOG', this.props)
       if (this.state.error) return <h1>{this.state.error}</h1>
       if (!this.state.block) return <h1>Loading...</h1>
 
       
-      console.log('LATEST LOG OF IDEAS', this.state.ideas)
+      console.log('LATEST LOG OF IDEAS', this.state)
       return (
-        <div>
+        <div>         
           <Interweave content={this.state.title} />
           <Interweave content={this.state.text} />
           <Interweave content={this.state.question} />
-
-         
         
-          {this.props.ideas.map(idea => {
-        if (idea.parentBlock === this.props.match.params.id) {
+          {this.state.block.ideas.map(idea => {
+
+        
         return (
           <div key={idea._id}>
             <h3>
-              <Interweave content={idea.text} />
+              <Markup content={idea.owner.username} />
+              <Markup content={idea.text} />
+              <Markup content={idea.creationDate} />
             </h3>
           </div>
           )
-          } 
+          
           })}
 
           <Form onSubmit={this.handleSubmit}>
