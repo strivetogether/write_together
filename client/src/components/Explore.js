@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 export default class Explore extends Component {
   
   render() {
-    console.log('CONSOLE LOG', this.props.blocks)
     return (
       <div>
       <h1>Blockz</h1>

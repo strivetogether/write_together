@@ -20,7 +20,8 @@ class App extends React.Component {
 
   state = {
     user: this.props.user,
-    blocks: []
+    blocks: [],
+    ideas: [],
   }
 
   setUser = user => {
@@ -39,6 +40,16 @@ class App extends React.Component {
         })
       })
       .catch(err => console.log(err))
+
+    axios.get('/api/ideas/allideas')
+      .then(response => {
+        // put them into the state
+        this.setState({
+          ideas: response.data
+        })
+      })
+      .catch(err => console.log(err))
+    
   }
 
   componentDidMount() {
@@ -51,6 +62,7 @@ class App extends React.Component {
   // }
 
   render() {
+    console.log('GET IDEAS DATA', this.state.ideas)
     return (
       <div className="App">
       
@@ -87,8 +99,8 @@ class App extends React.Component {
         <Route
         exact
         path='/blockdetails'
-        render={props => {
-        <BlockDetails {...props}/>
+        render={props => {  
+        return <BlockDetails {...props}/>
         }}
         />
 
@@ -119,7 +131,7 @@ class App extends React.Component {
         <Route
           exact
           path='/blocks/:id'
-          render={props => <BlockDetails setUser={this.setUser} {...props} />}
+          render={props => <BlockDetails setUser={this.setUser} blocks={this.state.blocks} ideas={this.state.ideas} {...props} />}
         />
 
         {/* <AddBlock /> */}
