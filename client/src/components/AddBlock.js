@@ -59,7 +59,7 @@ export default class AddBlock extends Component {
     }
 
   render() {
-    console.log('HERE WE ARE 2')
+
     return (
       
         <Form onSubmit={this.handleSubmit}>
@@ -85,18 +85,17 @@ export default class AddBlock extends Component {
           id="text"
           initialValue="<p>This is the initial content of the editor</p>"
           init={{
-           height: 500,
+            min_height: 300,
+            // height: '50vh',
            fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
            menubar: false,
            plugins: [
-             'advlist autolink lists link image charmap print preview anchor',
+             'advlist autolink lists link charmap print preview anchor',
              'searchreplace visualblocks code fullscreen',
-             'insertdatetime media table paste code help wordcount'
+             'paste code help wordcount'
            ],
            toolbar:
-             'undo redo | formatselect | bold italic backcolor | \
-             alignleft aligncenter alignright alignjustify | \
-             bullist numlist outdent indent | removeformat | help |  fontsizeselect'
+             'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |  fontsizeselect | help'
          }}
          onEditorChange={this.handleTextChange}
         />
@@ -112,18 +111,17 @@ export default class AddBlock extends Component {
           id="question"
           initialValue="<p>This is the initial content of the editor</p>"
           init={{
-           height: 500,
+            min_height: 300,
+            // height: '50vh',
            fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
            menubar: false,
            plugins: [
-             'advlist autolink lists link image charmap print preview anchor',
+             'advlist autolink lists link charmap print preview anchor',
              'searchreplace visualblocks code fullscreen',
-             'insertdatetime media table paste code help wordcount'
+             'paste code help wordcount'
            ],
            toolbar:
-             'undo redo | formatselect | bold italic backcolor | \
-             alignleft aligncenter alignright alignjustify | \
-             bullist numlist outdent indent | removeformat | help |  fontsizeselect'
+             'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |  fontsizeselect | help'
          }}
          onEditorChange={this.handleQuestionChange}
         />
@@ -137,61 +135,3 @@ export default class AddBlock extends Component {
 }
 
 
-{/* <Form onSubmit={this.handleSubmit}>
-
-<Editor
-apiKey={process.env.REACT_APP_TINY_ID}
- initialValue="<p>This is the initial content of the editor</p>"
- init={{
-   height: 500,
-   menubar: false,
-   plugins: [
-     'advlist autolink lists link image charmap print preview anchor',
-     'searchreplace visualblocks code fullscreen',
-     'insertdatetime media table paste code help wordcount'
-   ],
-   toolbar:
-     'undo redo | formatselect | bold italic backcolor | \
-     alignleft aligncenter alignright alignjustify | \
-     bullist numlist outdent indent | removeformat | help'
- }}
- onEditorChange={this.handleEditorChange}
-/>
-
-
-
-<Form.Group>
-  <Form.Label htmlFor='title'>Title: </Form.Label>
-  <Form.Control
-    type='text'
-    id='title'
-    name='title'
-    value={this.state.title}
-    onChange={this.handleChange}
-  />
-</Form.Group>
-
-<Form.Group>
-  <Form.Label htmlFor='text'>Your text so far: </Form.Label>
-  <Form.Control
-    type='text'
-    id='text'
-    name='text'
-    value={this.state.text}
-    onChange={this.handleChange}
-  />
-</Form.Group>
-
-<Form.Group>
-  <Form.Label htmlFor='question'>What's your block?: </Form.Label>
-  <Form.Control
-    type='question'
-    id='question'
-    name='question'
-    value={this.state.question}
-    onChange={this.handleChange}
-  />
-</Form.Group>
-
-<Button type='submit'>Add a Project</Button>
-</Form> */}
