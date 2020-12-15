@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Markup } from 'interweave';
 import Interweave from 'interweave';
 import { Form, Button } from 'react-bootstrap';
@@ -99,7 +100,8 @@ export default class BlockDetails extends Component {
           <div key={idea._id}>
             <h3>
               <Markup content={idea.owner.username} />
-              <Markup content={idea.text} />
+              <Link to={`/ideas/${idea._id}`}><Markup content={idea.text} /></Link>
+              {/* <Markup content={idea.text} /> */}
               <Markup content={idea.creationDate} />
             </h3>
           </div>

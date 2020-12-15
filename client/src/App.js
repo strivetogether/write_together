@@ -12,7 +12,8 @@ import AddBlock from './components/AddBlock';
 import Login from './components/Login';
 import Explore from './components/Explore';
 import BlockDetails from './components/BlockDetails';
-import { Editor } from '@tinymce/tinymce-react';
+import IdeaDetails from './components/IdeaDetails';
+
 
 
 
@@ -62,7 +63,7 @@ class App extends React.Component {
   // }
 
   render() {
-    console.log('GET IDEAS DATA', this.state)
+    // console.log('GET IDEAS DATA', this.state)
     return (
       <div className="App">
       
@@ -134,6 +135,11 @@ class App extends React.Component {
           render={props => <BlockDetails setUser={this.setUser} blocks={this.state.blocks} ideas={this.state.ideas} getData={this.getData} {...props} />}
         />
 
+        <Route
+          exact
+          path='/ideas/:id'
+          render={props => <IdeaDetails setUser={this.setUser} {...props} />}
+        />
         {/* <AddBlock /> */}
         {/* </Route> */}
       </div>

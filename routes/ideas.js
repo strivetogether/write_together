@@ -34,6 +34,24 @@ router.get('/userideas/:userid', (req, res) => {
     })
 })
 
+// access one idea's details
+router.get('/details/:ideaid', (req, res) => {
+  Idea.findById(req.params.ideaid)
+    // .populate({
+    // path: 'ideas',
+    // // Get friends of friends - populate the 'friends' array for every friend
+    // populate: { path: 'owner' }})
+    .then(block => {
+      if (!block) {
+        res.status(404).json(block);
+      } else {
+        res.status(200).json(block);
+      }
+    })
+    .catch(err => {
+      res.json(err);
+    })
+})
 
 
 
