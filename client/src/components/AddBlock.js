@@ -75,6 +75,158 @@ export default class AddBlock extends Component {
           />
         </Form.Group>
         
+
+
+        {/* <Editor
+              className="input-text"
+              type="text"
+              name="content"
+              value={this.state.content}
+              id="content"
+              placeholder="Your Article:"
+              cols="10"
+              rows="20"
+              init={{
+                skin: "fabric",
+                icon: "jam",
+                branding: false,
+                plugins:
+                  "print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons autoresize",
+                menubar: "file edit view insert format tools table help",
+                toolbar_mode: "floating",
+                toolbar: [
+                  {
+                    name: "history",
+                    items: ["undo", "redo"],
+                  },
+                  {
+                    name: "formatting",
+                    items: ["bold", "italic", "underline", "strikethrough"],
+                  },
+                  {
+                    name: "alignment",
+                    items: [
+                      "alignleft",
+                      "aligncenter",
+                      "alignright",
+                      "alignjustify",
+                    ],
+                  }, {
+                    name: "preview",
+                    items:["fullscreen", "preview" ,"save", "print" ],
+                  },
+                  {
+                    name: "indentation",
+                    items: ["outdent", "indent"],
+                  }, {
+                    name: "list",
+                    items:["numlist" , "bullist"],
+                  }, {
+                    name: "color",
+                    items:["forecolor", "backcolor", "removeformat" ],
+                  }, {
+                    name: "emoticons",
+                    items:["charmap", "emoticons" ],
+                  }
+                ],
+                toolbar_sticky: true,
+                image_advtab: true,
+                template_cdate_format:
+                  "[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]",
+                template_mdate_format:
+                  "[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]",
+                min_height: 600,
+                width: 600,
+                min_width: 600,
+                resize: false,
+                statusbar: false,
+                image_caption: true,
+                quickbars_selection_toolbar:
+                  "bold italic | quicklink h2 h3 blockquote quickimage quicktable",
+                noneditable_noneditable_class: "mceNonEditable",
+                contextmenu: "link image imagetools table",
+              }}
+              onEditorChange={this.handleEditorChange}
+            /> */}
+
+
+
+
+        <Form.Group>
+          <Form.Label htmlFor='text'>Your text so far: </Form.Label>
+          <Editor
+          apiKey={process.env.REACT_APP_TINY_ID}
+          type="text"
+          name="text"
+          value={this.state.text}
+          id="text"
+          initialValue="<p>This is the initial content of the editor</p>"
+              init={{
+                skin: "fabric",
+                icon: "jam",
+                branding: false,
+                plugins:
+                  "print preview paste importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons autoresize",
+                menubar: "file edit view insert format tools table help",
+                toolbar_mode: "floating",
+                toolbar: [
+                  {
+                    name: "history",
+                    items: ["undo", "redo"],
+                  },
+                  {
+                    name: "formatting",
+                    items: ["bold", "italic", "underline", "strikethrough"],
+                  },
+                  {
+                    name: "alignment",
+                    items: [
+                      "alignleft",
+                      "aligncenter",
+                      "alignright",
+                      "alignjustify",
+                    ],
+                  }, {
+                    name: "preview",
+                    items:["fullscreen", "preview" ,"save", "print" ],
+                  },
+                  {
+                    name: "indentation",
+                    items: ["outdent", "indent"],
+                  }, {
+                    name: "list",
+                    items:["numlist" , "bullist"],
+                  }, {
+                    name: "color",
+                    items:["forecolor", "backcolor", "removeformat" ],
+                  }, {
+                    name: "emoticons",
+                    items:["charmap", "emoticons" ],
+                  }
+                ],
+                toolbar_sticky: true,
+                image_advtab: true,
+                template_cdate_format:
+                  "[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]",
+                template_mdate_format:
+                  "[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]",
+                min_height: 600,
+                width: 600,
+                min_width: 600,
+                resize: false,
+                statusbar: false,
+                image_caption: true,
+                quickbars_selection_toolbar:
+                  "bold italic | quicklink h2 h3 blockquote quickimage quicktable",
+                noneditable_noneditable_class: "mceNonEditable",
+                contextmenu: "link image imagetools table",
+         }}
+         onEditorChange={this.handleTextChange}
+        />
+        </Form.Group>
+
+{/* 
+
         <Form.Group>
           <Form.Label htmlFor='text'>Your text so far: </Form.Label>
           <Editor
@@ -100,10 +252,10 @@ export default class AddBlock extends Component {
          }}
          onEditorChange={this.handleTextChange}
         />
-        </Form.Group>
+        </Form.Group> */}
 
         <Form.Group>
-          <Form.Label htmlFor='text'>Your text so far: </Form.Label>
+          <Form.Label htmlFor='text'>Your questions or block to solve: </Form.Label>
           <Editor
           apiKey={process.env.REACT_APP_TINY_ID}
           type="text"
@@ -112,18 +264,17 @@ export default class AddBlock extends Component {
           id="question"
           initialValue="<p>This is the initial content of the editor</p>"
           init={{
-           height: 500,
+            min_height: 300,
+            height: '80vh',
            fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
            menubar: false,
            plugins: [
-             'advlist autolink lists link image charmap print preview anchor',
+             'advlist autolink lists link charmap print preview anchor',
              'searchreplace visualblocks code fullscreen',
-             'insertdatetime media table paste code help wordcount'
+             'paste code help wordcount'
            ],
            toolbar:
-             'undo redo | formatselect | bold italic backcolor | \
-             alignleft aligncenter alignright alignjustify | \
-             bullist numlist outdent indent | removeformat | help |  fontsizeselect'
+             'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |  fontsizeselect | help'
          }}
          onEditorChange={this.handleQuestionChange}
         />
