@@ -131,7 +131,7 @@ class App extends React.Component {
         <Route
           exact
           path='/blocks/:id'
-          render={props => <BlockDetails setUser={this.setUser} blocks={this.state.blocks} ideas={this.state.ideas} {...props} />}
+          render={props => <BlockDetails setUser={this.setUser} blocks={this.state.blocks} ideas={this.state.ideas} getData={this.getData} {...props} />}
         />
 
         {/* <AddBlock /> */}

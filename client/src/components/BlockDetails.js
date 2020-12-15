@@ -18,7 +18,7 @@ export default class BlockDetails extends Component {
     ideaText: '',
   }
 
-  getData = () => {
+  getBlock = () => {
     const id = this.props.match.params.id;
     console.log('ID LOG', id);
     axios.get(`/api/blocks/details/${id}`)
@@ -43,14 +43,13 @@ export default class BlockDetails extends Component {
   }
 
   componentDidMount = () => {
-    this.getData();
+    this.getBlock();
   }
 
   handleSubmit = event => {
     event.preventDefault();
-    // console.log(this.state);
-    console.log(this.state);
-    axios.post('/api/blocks/details/:blockid/addidea', {
+    const id = this.props.match.params.id;
+    axios.post(`/api/blocks/details/${id}/addidea`, {
       text: this.state.ideaText,
     })
       .then(() => {
@@ -65,6 +64,12 @@ export default class BlockDetails extends Component {
       .catch(err => console.log(err))
 
   }
+
+      //tinymce's own method
+      handleIdeaTextChange = (ideaText, editor) => {     
+        this.setState({ ideaText: ideaText});
+        // console.log('Content was updated:', text);
+      }
 
     render() {
       console.log('BLOCKSLOG', this.props)
@@ -100,9 +105,9 @@ export default class BlockDetails extends Component {
           <Editor
           apiKey={process.env.REACT_APP_TINY_ID}
           type="text"
-          name="text"
-          value={this.state.text}
-          id="text"
+          name="ideaText"
+          value={this.state.ideaText}
+          id="ideaText"
           initialValue="<p>This is the initial content of the editor</p>"
           init={{
             min_height: 300,
@@ -117,7 +122,7 @@ export default class BlockDetails extends Component {
            toolbar:
              'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |  fontsizeselect | help'
          }}
-          onEditorChange={this.handleTextChange}
+          onEditorChange={this.handleIdeaTextChange}
           />
           </Form.Group>
           <Button type='submit'>Add an Idea</Button>

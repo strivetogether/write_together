@@ -59,7 +59,7 @@ export default class AddBlock extends Component {
     }
 
   render() {
-    console.log('HERE WE ARE 2')
+
     return (
       
         <Form onSubmit={this.handleSubmit}>
