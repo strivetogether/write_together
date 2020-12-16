@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
 
 // create a block
 router.post('/', (req, res) => {
-  const { title, text, question} = req.body;
+  const { title, text, question } = req.body;
   const owner = req.user._id;
   const ideas = [];
   // const owner = req.user._id;
@@ -34,12 +34,12 @@ router.post('/', (req, res) => {
   })
     .then(block => {
       console.log('CONSOLE LOG:', req.user.blocks, block._id)
-     User.findByIdAndUpdate(owner, { $push: { blocks:  block._id }}, { new : true })
-     .then(user => {
-      res.status(201).json({user, block}); 
-      //We can send only one argument
-      // In our response we will have response.data.user and response.data.block
-     })   
+      User.findByIdAndUpdate(owner, { $push: { blocks: block._id } }, { new: true })
+        .then(user => {
+          res.status(201).json({ user, block });
+          //We can send only one argument
+          // In our response we will have response.data.user and response.data.block
+        })
     })
     .catch(err => {
       console.log('ERROR', err)
@@ -67,7 +67,7 @@ router.get('/details/:blockid', (req, res) => {
 // get all specific user blocks
 router.get('/userblocks/:userid', (req, res) => {
 
-  Block.find({owner: req.params.userid})
+  Block.find({ owner: req.params.userid })
     .then(block => {
       // console.log('This is the blocks ID thingy', req.params.id)
       // console.log('This is the userid thingy', req.params.userid)
@@ -81,6 +81,27 @@ router.get('/userblocks/:userid', (req, res) => {
       res.json(err);
     })
 })
+
+
+//update block
+router.put('/:blockid/editblock', (req, res, next) => {
+  const { title, text, question } = req.body;
+  Block.findByIdAndUpdate(
+    req.params.blockid,
+    { title, text, question },
+    // this ensures that we are getting the updated document as a return 
+    { new: true }
+  )
+    .then(block => {
+      console.log(block);
+      res.status(200).json(block);
+    })
+    .catch(err => {
+      res.json(err);
+    })
+});
+
+
 
 // delete block
 router.delete('/delete/:id', (req, res, next) => {
@@ -112,18 +133,18 @@ router.post('/details/:blockid/addidea', (req, res) => {
     comments
   })
     .then(idea => {
-     Block.findByIdAndUpdate(parentBlock, { $push: { ideas:  idea._id }}, { new : true }) // add idea to block
-    .then(block => {
-      console.log("this is a block right now", block)
-    //   console.log("this is block.owner right now", block.owner);
-      User.findByIdAndUpdate(block.owner, { $push: { ideas: idea._id }}, { new : true }) // add idea's id to owner
-     .then(user => {
-      res.status(201).json({idea}); 
-      //We can send only one argument
-      // In our response we will have response.data.user and response.data.block
-     })   
+      Block.findByIdAndUpdate(parentBlock, { $push: { ideas: idea._id } }, { new: true }) // add idea to block
+        .then(block => {
+          console.log("this is a block right now", block)
+          //   console.log("this is block.owner right now", block.owner);
+          User.findByIdAndUpdate(block.owner, { $push: { ideas: idea._id } }, { new: true }) // add idea's id to owner
+            .then(user => {
+              res.status(201).json({ idea });
+              //We can send only one argument
+              // In our response we will have response.data.user and response.data.block
+            })
+        })
     })
-  })
     .catch(err => {
       console.log('ERROR', err)
       res.json(err);
