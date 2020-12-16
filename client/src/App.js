@@ -114,13 +114,17 @@ class App extends React.Component {
         <Route
           exact
           path='/blocks/:id'
-          render={props => <BlockDetails setUser={this.setUser} blocks={this.state.blocks} ideas={this.state.ideas} getData={this.getData} {...props} />}
+          render={props => <BlockDetails setUser={this.setUser} blocks={this.state.blocks} ideas={this.state.ideas} user={this.state.user} getData={this.getData} {...props} />}
         />
+
 
         <Route
           exact
           path='/blocks/:id/editblock'
-          render={props => <EditBlock setUser={this.setUser} blocks={this.state.blocks} ideas={this.state.ideas} getData={this.getData} {...props} />}
+          render={props => { 
+            if (this.state.user) return <EditBlock setUser={this.setUser} blocks={this.state.blocks} ideas={this.state.ideas} getData={this.getData} {...props} />
+            else return <Redirect to='/signup' />
+            }}
         />
 
         <Route

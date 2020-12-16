@@ -81,7 +81,7 @@ export default class BlockDetails extends Component {
       // }
 
 handleGoToEdit = (id) => {
-  console.log("this is the handleGoToEdit", this.props.match.params)
+  // console.log("this is the handleGoToEdit", this.props.match.params)
   this.props.history.push(`/blocks/${this.props.match.params.id}/editblock`);
 }
 
@@ -101,9 +101,9 @@ if (user && user._id === owner) allowedToDelete = true;
           <Interweave content={this.state.title} />
           <Interweave content={this.state.text} />
           <Interweave content={this.state.question} />
-          {/* {allowedToDelete && ( */}
+          {allowedToDelete && (
           <Button onClick={this.handleGoToEdit}>Edit</Button>  
-          {/* )} */}
+          )}
           </section>
 
 
