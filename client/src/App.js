@@ -14,6 +14,8 @@ import Explore from './components/Explore';
 import BlockDetails from './components/BlockDetails';
 import EditBlock from './components/EditBlock';
 import IdeaDetails from './components/IdeaDetails';
+import Dashboard from './components/Dashboard';
+
 
 
 
@@ -63,16 +65,27 @@ class App extends React.Component {
     return (
       <div className="App">
 
+
         <Navbar user={this.state.user} setUser={this.setUser} />
 
         <Route
+        exact
+        path='/addblock'
+        render={props => {
+        if (this.state.user) return <AddBlock getData={this.getData} blocks={this.state.blocks} {...props}/>
+        else return <Redirect to='/signup' />
+        }}
+        />
+        
+
+        {/* <Route
           exact
           path='/addblock'
           render={props => {
             if (this.state.user) return <AddBlock getData={this.getData} {...props} />
             else return <Redirect to='/signup' />
           }}
-        />
+        /> */}
 {/* We're not using this one, right?
         <Route
           exact
@@ -126,6 +139,12 @@ class App extends React.Component {
           exact
           path='/ideas/:id'
           render={props => <IdeaDetails user={this.state.user} setUser={this.setUser} getData={this.getData} {...props} />}
+        />
+
+        <Route
+          exact
+          path='/dashboard'
+          render={props => <Dashboard user={this.state.user} setUser={this.setUser} {...props} />}
         />
         {/* <AddBlock /> */}
         {/* </Route> */}

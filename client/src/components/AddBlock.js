@@ -12,6 +12,7 @@ export default class AddBlock extends Component {
     title: '',
     text: '',
     question: '',
+    addedBlockId: '',
   }
   
 
@@ -26,13 +27,12 @@ export default class AddBlock extends Component {
   handleSubmit = event => {
     event.preventDefault();
     // console.log(this.state);
-    console.log(this.state);
     axios.post('/api/blocks', {
       title: this.state.title,
       text: this.state.text,
       question: this.state.question,
     })
-      .then(() => {
+      .then(response => {
         // set the form to it's initial state (empty input fields)
         this.setState({
           title: '',
@@ -40,6 +40,8 @@ export default class AddBlock extends Component {
           question: '',
         })
         this.props.getData();
+        const id = response.data.block._id;
+        this.props.history.push(`blocks/${id}`);
         // update the parent components state (in Projects) by calling getData()
         // this.props.getData();
       })
