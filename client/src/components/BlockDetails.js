@@ -73,12 +73,6 @@ export default class BlockDetails extends Component {
         // console.log('Content was updated:', text);
       }
 
-      //find ideas' creator
-      // handleGetIdeaCreator = () => {
-      //   User.findById(idea.owner)
-      //   .then
-
-      // }
 
     render() {
       // console.log('BLOCKSLOG', this.props)
@@ -94,15 +88,13 @@ export default class BlockDetails extends Component {
           <Interweave content={this.state.question} />
         
           {this.state.block.ideas.map(idea => {
-
-        
         return (
           <div key={idea._id}>
             <h3>
               <Markup content={idea.owner.username} />
-              <Link to={`/ideas/${idea._id}`}><Markup content={idea.text} /></Link>
-              {/* <Markup content={idea.text} /> */}
-              <Markup content={idea.creationDate} />
+              <Markup content={idea.text} />
+              <Link to={`/ideas/${idea._id}`}>Read more...</Link>
+              {idea.creationDate.split("T")[0].split("-").reduce((t,v) => t = v + "/" + t)}
             </h3>
           </div>
           )

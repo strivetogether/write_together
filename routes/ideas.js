@@ -36,22 +36,29 @@ router.get('/userideas/:userid', (req, res) => {
 
 // access one idea's details
 router.get('/details/:ideaid', (req, res) => {
-  Idea.findById(req.params.ideaid)
-    // .populate({
-    // path: 'ideas',
-    // // Get friends of friends - populate the 'friends' array for every friend
-    // populate: { path: 'owner' }})
-    .then(block => {
-      if (!block) {
-        res.status(404).json(block);
+  Idea.findById(req.params.ideaid).populate('owner')
+    .then(idea => {
+      if (!idea) {
+        res.status(404).json(ideas);
       } else {
-        res.status(200).json(block);
+        res.status(200).json(idea);
       }
     })
     .catch(err => {
       res.json(err);
     })
 })
+
+//delete an idea
+router.delete('/delete/:ideaid', (req, res, next) => {
+  Idea.findByIdAndDelete(req.params.ideaid)
+    .then(idea => {
+      res.status(200).json({ message: 'idea deleted' })
+    })
+    .catch(err => {
+      res.json(err);
+    })
+});
 
 
 
