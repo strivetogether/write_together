@@ -49,16 +49,21 @@ router.get('/details/:ideaid', (req, res) => {
     })
 })
 
-//delete an idea
-router.delete('/delete/:ideaid', (req, res, next) => {
-  Idea.findByIdAndDelete(req.params.ideaid)
-    .then(idea => {
-      res.status(200).json({ message: 'idea deleted' })
-    })
-    .catch(err => {
-      res.json(err);
-    })
-});
+// toggle one idea's selected-status
+
+
+
+
+// //delete an idea
+// router.delete('/delete/:ideaid', (req, res, next) => {
+//   Idea.findByIdAndDelete(req.params.ideaid)
+//     .then(idea => {
+//       res.status(200).json({ message: 'idea deleted' })
+//     })
+//     .catch(err => {
+//       res.json(err);
+//     })
+// });
 
 
 //delete one idea 

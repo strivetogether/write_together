@@ -26,13 +26,16 @@ export default class BlockDetails extends Component {
     axios.get(`/api/blocks/details/${id}`)
       .then(response => {
         console.log('This is the response', response);
-        console.log("this is props", this.props);
+        console.log('The reponse.data.ideas', response.data.ideas);
+
         this.setState({
           title: response.data.title,
           text: response.data.text,
           question: response.data.question,
           block: response.data,
           ideas: response.data.ideas,
+
+
         })
       })
       .catch(err => {
@@ -99,6 +102,14 @@ export default class BlockDetails extends Component {
       })
 
   }
+  
+//select which ideas you like
+handleToggleIdeaSelect = (idea) => {
+console.log("an idea was selected", idea)
+// this.setState(state => ({
+//   selected: !this.state.selected
+// }))
+  }
 
   render() {
     // console.log('BLOCKSLOG', this.props)
@@ -127,14 +138,25 @@ export default class BlockDetails extends Component {
 
 
         {this.state.block.ideas.map(idea => {
+         // get each idea's selected-status
+         console.log(idea.selected)
           return (
             <div key={idea._id}>
-              <h3>
-                <Markup content={idea.owner.username} />
-                <Markup content={idea.text} />
+              
+                <span>{idea.owner.username}</span>
+                <div><Markup content={idea.text} /></div>
                 <Link to={`/ideas/${idea._id}`}>Read more...</Link>
                 {idea.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t)}
-              </h3>
+                {(isOwner & !idea.selected ) && (
+            <div>
+              <Button onClick={this.handleToggleIdeaSelect}>I'll use this idea 💜</Button>
+            </div>
+          )}
+          {(isOwner & idea.selected ) && (
+            <div>
+              <Button onClick={this.handleToggleIdeaSelect(idea)}>Nevermind</Button>
+            </div>
+          )}
             </div>
           )
 
