@@ -9,20 +9,18 @@ export default class UserBlocks extends Component {
     state = {
         block: null,
         error: null,
-        blocks:[],
         ideas:[]
     }
 
-    getAllUserBlocks = () => {
+    getAllUserIdeas = () => {
         const id = this.props.user._id;
         console.log('DASHBOARD ID LOG', this.props.user._id);
-        axios.get(`/api/blocks/userblocks/${id}`)
+        axios.get(`/api/ideas/userideas/${id}`)
           .then(response => {
-            console.log('Show me the response', response);
+            console.log('IDEAS RESPONSE', response);
             this.setState({
               block: response.data,
-              blocks: response.data,
-              ideas: response.data.ideas,
+              ideas: response.data,
             })
           })
           .catch(err => {
@@ -36,22 +34,22 @@ export default class UserBlocks extends Component {
       }
 
       componentDidMount = () => {
-        this.getAllUserBlocks();
+        this.getAllUserIdeas();
       }
 
       render() {
         if (this.state.error) return <h1>{this.state.error}</h1>
-        if (!this.state.blocks) return <h1>Loading...</h1>
+        if (!this.state.ideas) return <h1>Loading...</h1>
 
         return (
             <div>
-            <h1>My blocks</h1>
+            <h1>My ideas</h1>
             
-              {this.state.blocks.map(block => {
+              {this.state.ideas.map(idea => {
               return (
-                <div key={block._id}>
+                <div key={idea._id}>
                   <h2>
-                    <Link to={`/blocks/${block._id}`}>{block.title}</Link>
+                    <Link to={`/blocks/${idea._id}`}><Interweave content={idea.text}></Interweave></Link>
                   </h2>
                 </div>
               )
