@@ -7,7 +7,9 @@ const Idea = require('../models/Idea');
 
 // get all blocks 
 router.get('/', (req, res, next) => {
-  Block.find()
+  Block.find().populate({
+    path: 'ideas',
+    populate: { path: 'owner' }})
     .then(blocks => {
       res.status(200).json(blocks);
     })
@@ -47,7 +49,9 @@ router.post('/', (req, res) => {
 
 // access one block's details
 router.get('/details/:blockid', (req, res) => {
-  Block.findById(req.params.blockid)
+  Block.findById(req.params.blockid).populate({
+    path: 'ideas',
+    populate: { path: 'owner' }})
     .then(block => {
       if (!block) {
         res.status(404).json(block);

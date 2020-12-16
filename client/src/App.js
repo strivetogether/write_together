@@ -12,7 +12,9 @@ import AddBlock from './components/AddBlock';
 import Login from './components/Login';
 import Explore from './components/Explore';
 import BlockDetails from './components/BlockDetails';
-import EditBlock from './components/EditBlock'
+import EditBlock from './components/EditBlock';
+import IdeaDetails from './components/IdeaDetails';
+
 
 
 
@@ -49,7 +51,7 @@ class App extends React.Component {
     //     })
     //   })
     //   .catch(err => console.log(err))
-    
+
   }
 
   componentDidMount() {
@@ -62,27 +64,27 @@ class App extends React.Component {
   // }
 
   render() {
-    console.log('GET IDEAS DATA', this.state)
+    // console.log('GET IDEAS DATA', this.state)
     return (
       <div className="App">
-      
-        <Navbar user={this.state.user} setUser={this.setUser}/>
+
+        <Navbar user={this.state.user} setUser={this.setUser} />
 
         <Route
-        exact
-        path='/addblock'
-        render={props => {
-        if (this.state.user) return <AddBlock getData={this.getData} {...props}/>
-        else return <Redirect to='/signup' />
-        }}
+          exact
+          path='/addblock'
+          render={props => {
+            if (this.state.user) return <AddBlock getData={this.getData} {...props} />
+            else return <Redirect to='/signup' />
+          }}
         />
 
         <Route
-        exact
-        path='/blockdetails'
-        render={props => {  
-        return <BlockDetails {...props}/>
-        }}
+          exact
+          path='/blockdetails'
+          render={props => {
+            return <BlockDetails {...props} />
+          }}
         />
 
         <Route
@@ -115,12 +117,17 @@ class App extends React.Component {
           render={props => <BlockDetails setUser={this.setUser} blocks={this.state.blocks} ideas={this.state.ideas} getData={this.getData} {...props} />}
         />
 
-<Route
+        <Route
           exact
           path='/blocks/:id/editblock'
           render={props => <EditBlock setUser={this.setUser} blocks={this.state.blocks} ideas={this.state.ideas} getData={this.getData} {...props} />}
         />
 
+        <Route
+          exact
+          path='/ideas/:id'
+          render={props => <IdeaDetails setUser={this.setUser} {...props} />}
+        />
         {/* <AddBlock /> */}
         {/* </Route> */}
       </div>
