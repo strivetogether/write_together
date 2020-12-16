@@ -15,6 +15,7 @@ import BlockDetails from './components/BlockDetails';
 import EditBlock from './components/EditBlock';
 import IdeaDetails from './components/IdeaDetails';
 import Dashboard from './components/Dashboard';
+import Home from './components/Home';
 
 
 
@@ -94,6 +95,12 @@ class App extends React.Component {
             return <BlockDetails {...props} />
           }}
         /> */}
+
+        <Route
+          exact
+          path='/'
+          render={props => <Home setUser={this.setUser} blocks={this.state.blocks} {...props} />}
+        />
 
         <Route
           exact
