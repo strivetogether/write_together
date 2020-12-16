@@ -12,6 +12,7 @@ import AddBlock from './components/AddBlock';
 import Login from './components/Login';
 import Explore from './components/Explore';
 import BlockDetails from './components/BlockDetails';
+import EditBlock from './components/EditBlock';
 import IdeaDetails from './components/IdeaDetails';
 import Dashboard from './components/Dashboard';
 
@@ -52,43 +53,20 @@ class App extends React.Component {
     //     })
     //   })
     //   .catch(err => console.log(err))
-    
+
   }
 
   componentDidMount() {
     this.getData();
   }
 
-  // //tinymce's own method
-  // handleEditorChange = (content, editor) => {
-  //   console.log('Content was updated:', content);
-  // }
-
   render() {
     // console.log('GET IDEAS DATA', this.state)
     return (
       <div className="App">
-      
-        <Navbar user={this.state.user} setUser={this.setUser}/>
-{/* 
-        <Editor
-        apiKey={process.env.REACT_APP_TINY_ID}
-         initialValue="<p>This is the initial content of the editor</p>"
-         init={{
-           height: 500,
-           menubar: false,
-           plugins: [
-             'advlist autolink lists link image charmap print preview anchor',
-             'searchreplace visualblocks code fullscreen',
-             'insertdatetime media table paste code help wordcount'
-           ],
-           toolbar:
-             'undo redo | formatselect | bold italic backcolor | \
-             alignleft aligncenter alignright alignjustify | \
-             bullist numlist outdent indent | removeformat | help'
-         }}
-         onEditorChange={this.handleEditorChange}
-       /> */}
+
+
+        <Navbar user={this.state.user} setUser={this.setUser} />
 
         <Route
         exact
@@ -98,14 +76,24 @@ class App extends React.Component {
         else return <Redirect to='/signup' />
         }}
         />
+        
 
+        {/* <Route
+          exact
+          path='/addblock'
+          render={props => {
+            if (this.state.user) return <AddBlock getData={this.getData} {...props} />
+            else return <Redirect to='/signup' />
+          }}
+        /> */}
+{/* We're not using this one, right?
         <Route
-        exact
-        path='/blockdetails'
-        render={props => {  
-        return <BlockDetails {...props}/>
-        }}
-        />
+          exact
+          path='/blockdetails'
+          render={props => {
+            return <BlockDetails {...props} />
+          }}
+        /> */}
 
         <Route
           exact
@@ -134,13 +122,23 @@ class App extends React.Component {
         <Route
           exact
           path='/blocks/:id'
-          render={props => <BlockDetails setUser={this.setUser} blocks={this.state.blocks} ideas={this.state.ideas} getData={this.getData} {...props} />}
+          render={props => <BlockDetails setUser={this.setUser} blocks={this.state.blocks} ideas={this.state.ideas} user={this.state.user} getData={this.getData} {...props} />}
+        />
+
+
+        <Route
+          exact
+          path='/blocks/:id/editblock'
+          render={props => { 
+            if (this.state.user) return <EditBlock setUser={this.setUser} blocks={this.state.blocks} ideas={this.state.ideas} getData={this.getData} {...props} />
+            else return <Redirect to='/signup' />
+            }}
         />
 
         <Route
           exact
           path='/ideas/:id'
-          render={props => <IdeaDetails user={this.state.user} setUser={this.setUser} {...props} />}
+          render={props => <IdeaDetails user={this.state.user} setUser={this.setUser} getData={this.getData} {...props} />}
         />
 
         <Route
