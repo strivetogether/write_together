@@ -94,7 +94,7 @@ class App extends React.Component {
         exact
         path='/addblock'
         render={props => {
-        if (this.state.user) return <AddBlock getData={this.getData} {...props}/>
+        if (this.state.user) return <AddBlock getData={this.getData} blocks={this.state.blocks} {...props}/>
         else return <Redirect to='/signup' />
         }}
         />
