@@ -130,7 +130,7 @@ class App extends React.Component {
         <Route
           exact
           path='/ideas/:id'
-          render={props => <IdeaDetails setUser={this.setUser} {...props} />}
+          render={props => <IdeaDetails user={this.state.user} setUser={this.setUser} {...props} />}
         />
         {/* <AddBlock /> */}
         {/* </Route> */}
