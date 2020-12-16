@@ -13,6 +13,8 @@ import Login from './components/Login';
 import Explore from './components/Explore';
 import BlockDetails from './components/BlockDetails';
 import IdeaDetails from './components/IdeaDetails';
+import Dashboard from './components/Dashboard';
+
 
 
 
@@ -139,6 +141,12 @@ class App extends React.Component {
           exact
           path='/ideas/:id'
           render={props => <IdeaDetails user={this.state.user} setUser={this.setUser} {...props} />}
+        />
+
+        <Route
+          exact
+          path='/dashboard'
+          render={props => <Dashboard user={this.state.user} setUser={this.setUser} {...props} />}
         />
         {/* <AddBlock /> */}
         {/* </Route> */}
