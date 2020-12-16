@@ -65,7 +65,7 @@ export default class AddBlock extends Component {
         <Form onSubmit={this.handleSubmit}>
 
         <Form.Group>
-          <Form.Label htmlFor='title'>Title: </Form.Label>
+          <Form.Label htmlFor='title'>Title </Form.Label>
           <Form.Control
             type='text'
             id='title'
@@ -76,7 +76,7 @@ export default class AddBlock extends Component {
         </Form.Group>
         
         <Form.Group>
-          <Form.Label htmlFor='text'>Your text so far: </Form.Label>
+          <Form.Label htmlFor='text'>Your text so far </Form.Label>
           <Editor
           apiKey={process.env.REACT_APP_TINY_ID}
           type="text"
@@ -102,7 +102,7 @@ export default class AddBlock extends Component {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label htmlFor='text'>Your text so far: </Form.Label>
+          <Form.Label htmlFor='text'>Your question(s) and writing block(s) </Form.Label>
           <Editor
           apiKey={process.env.REACT_APP_TINY_ID}
           type="text"
@@ -127,7 +127,7 @@ export default class AddBlock extends Component {
         />
         </Form.Group>
 
-        <Button type='submit'>Add a Project</Button>
+        <Button type='submit'>Add this block</Button>
       </Form>
       
     )
