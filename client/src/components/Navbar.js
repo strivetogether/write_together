@@ -31,6 +31,10 @@ export default class Navbar extends Component {
           </Nav.Brand>
 
           <Nav.Brand>
+            <Link to='/addblock'>Post your block</Link>
+          </Nav.Brand>
+
+          <Nav.Brand>
             <Link to='/dashboard'>Dashboard</Link>
           </Nav.Brand>
 
