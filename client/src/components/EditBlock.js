@@ -48,8 +48,7 @@ export default class EditBlock extends Component {
   }
   // handleSubmit = event => {
   //   event.preventDefault();
-  //   // console.log(this.state);
-  //   console.log(this.state);
+ // console.log("this is the state before updating the block", this.state);
   //   axios.post('/api/blocks', {
   //     title: this.state.title,
   //     text: this.state.text,
@@ -70,6 +69,35 @@ export default class EditBlock extends Component {
 
   // }
 
+
+
+
+  handleUpdateBlockSubmit = event => {
+    event.preventDefault();
+    const id = this.props.match.params.id;
+    axios.put(`/api/blocks/${id}/editblock`, {
+      title: this.state.title,
+      text: this.state.text,
+      question: this.state.question
+    })
+      .then(response => {
+        this.setState({
+          block: response.data,
+          title: response.data.title,
+          question: response.question,
+          description: response.data.question,
+          // editForm: false
+        })
+      })
+      .then(() => {
+        // const id = this.props.match.params.id;
+        this.props.history.push(`/blocks/${id}/`);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
     //tinymce's own method
     handleTextChange = (text, editor) => {     
       this.setState({ text: text});
@@ -88,7 +116,7 @@ export default class EditBlock extends Component {
 
     return (
       
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleUpdateBlockSubmit}>
 
         <Form.Group>
           <Form.Label htmlFor='title'>Title </Form.Label>
