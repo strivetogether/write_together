@@ -60,6 +60,7 @@ router.get('/details/:blockid', (req, res) => {
       }
     })
     .catch(err => {
+      console.log("Error from API: details/block :id", err)
       res.json(err);
     })
 })
@@ -69,8 +70,6 @@ router.get('/userblocks/:userid', (req, res) => {
 
   Block.find({ owner: req.params.userid })
     .then(block => {
-      // console.log('This is the blocks ID thingy', req.params.id)
-      // console.log('This is the userid thingy', req.params.userid)
       if (!block) {
         res.status(404).json(block);
       } else {
