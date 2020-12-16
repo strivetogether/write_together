@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Markup } from 'interweave';
+import { Button } from 'react-bootstrap';
 
 
 export default class IdeaDetails extends Component {
@@ -38,18 +39,37 @@ export default class IdeaDetails extends Component {
     this.getIdea();
   }
 
+  deleteIdea = () => {
+    const id = this.props.match.params.id;
+    axios.delete(`/api/ideas/delete/${id}`)
+      .then(() => {
+        this.props.history.push('/explore');
+      })
+      .catch(err => {
+        if (err.response.status === 404) {
+          this.setState({
+            error: 'Something went wrong'
+          })
+        }
+      })
+  }
+
 
   render() {
 
     if (this.state.error) return <h1>{this.state.error}</h1>
     if (!this.state.idea) return <h1>Loading...</h1>
+  
 
+    console.log('THIS PROPS', this.props)
+    // console.log('IdeaDetails state', this.state)
     return (
       <div>
             <h3>
-              <Markup content={this.state.owner} />
+              <Markup content={this.state.owner.username} />
               <Markup content={this.state.text} />
             </h3>
+              <Button variant='danger' onClick={this.deleteIdea}>Delete</Button>
       </div>
     )
   }
