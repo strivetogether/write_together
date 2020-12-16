@@ -58,11 +58,6 @@ class App extends React.Component {
     this.getData();
   }
 
-  // //tinymce's own method
-  // handleEditorChange = (content, editor) => {
-  //   console.log('Content was updated:', content);
-  // }
-
   render() {
     // console.log('GET IDEAS DATA', this.state)
     return (
@@ -78,14 +73,14 @@ class App extends React.Component {
             else return <Redirect to='/signup' />
           }}
         />
-
+{/* We're not using this one, right?
         <Route
           exact
           path='/blockdetails'
           render={props => {
             return <BlockDetails {...props} />
           }}
-        />
+        /> */}
 
         <Route
           exact
@@ -130,7 +125,7 @@ class App extends React.Component {
         <Route
           exact
           path='/ideas/:id'
-          render={props => <IdeaDetails user={this.state.user} setUser={this.setUser} {...props} />}
+          render={props => <IdeaDetails user={this.state.user} setUser={this.setUser} getData={this.getData} {...props} />}
         />
         {/* <AddBlock /> */}
         {/* </Route> */}

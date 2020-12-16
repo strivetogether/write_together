@@ -12,6 +12,7 @@ export default class IdeaDetails extends Component {
     text: '',
     comments: '',
     owner: '',
+    parentBlock: '',
   }
 
   getIdea = () => {
@@ -24,6 +25,7 @@ export default class IdeaDetails extends Component {
           text: response.data.text,
           comments: response.data.comments,
           owner: response.data.owner,
+          parentBlock: response.data.parentBlock
         })
       })
       .catch(err => {
@@ -42,8 +44,11 @@ export default class IdeaDetails extends Component {
   deleteIdea = () => {
     const id = this.props.match.params.id;
     axios.delete(`/api/ideas/delete/${id}`)
+    .then(() => {
+      this.props.getData();
+    })
       .then(() => {
-        this.props.history.push('/explore');
+        this.props.history.push(`/blocks/${this.state.parentBlock}`);
       })
       .catch(err => {
         if (err.response.status === 404) {
@@ -52,6 +57,7 @@ export default class IdeaDetails extends Component {
           })
         }
       })
+
   }
 
 
