@@ -59,9 +59,15 @@ export default class IdeaDetails extends Component {
 
     if (this.state.error) return <h1>{this.state.error}</h1>
     if (!this.state.idea) return <h1>Loading...</h1>
-  
 
-    console.log('THIS PROPS', this.props)
+    //Hide or show delete button according to logged in user
+    let allowedToDelete = false;
+    const user = this.props.user._id;
+    const owner = this.state.owner._id;
+    if (user === owner) allowedToDelete = true;
+
+    console.log('user is', this.props.user._id)
+    console.log('owner is', this.state.owner._id)
     // console.log('IdeaDetails state', this.state)
     return (
       <div>
@@ -69,7 +75,10 @@ export default class IdeaDetails extends Component {
               <Markup content={this.state.owner.username} />
               <Markup content={this.state.text} />
             </h3>
+            {allowedToDelete && (
               <Button variant='danger' onClick={this.deleteIdea}>Delete</Button>
+            )}
+              
       </div>
     )
   }
