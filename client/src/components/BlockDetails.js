@@ -80,19 +80,33 @@ export default class BlockDetails extends Component {
 
       // }
 
+handleGoToEdit = (id) => {
+  console.log("this is the handleGoToEdit", this.props.match.params)
+  this.props.history.push(`/blocks/${this.props.match.params.id}/editblock`);
+}
+
     render() {
       // console.log('BLOCKSLOG', this.props)
       if (this.state.error) return <h1>{this.state.error}</h1>
       if (!this.state.block) return <h1>Loading...</h1>
-
+let allowedToDelete = false;
+const user = this.props.user;
+const owner = this.state.block.owner;
+if (user && user._id === owner) allowedToDelete = true;
       
-      console.log('LATEST LOG OF IDEAS', this.state)
+      // console.log('LATEST LOG OF IDEAS', this.state)
       return (
-        <div>         
+        <div>
+        <section className="blockdetails">         
           <Interweave content={this.state.title} />
           <Interweave content={this.state.text} />
           <Interweave content={this.state.question} />
-        
+          {/* {allowedToDelete && ( */}
+          <Button onClick={this.handleGoToEdit}>Edit</Button>  
+          {/* )} */}
+          </section>
+
+
           {this.state.block.ideas.map(idea => {
 
         
@@ -101,7 +115,6 @@ export default class BlockDetails extends Component {
             <h3>
               <Markup content={idea.owner.username} />
               <Link to={`/ideas/${idea._id}`}><Markup content={idea.text} /></Link>
-              {/* <Markup content={idea.text} /> */}
               <Markup content={idea.creationDate} />
             </h3>
           </div>

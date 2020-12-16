@@ -46,32 +46,7 @@ export default class EditBlock extends Component {
         }
       })
   }
-  // handleSubmit = event => {
-  //   event.preventDefault();
- // console.log("this is the state before updating the block", this.state);
-  //   axios.post('/api/blocks', {
-  //     title: this.state.title,
-  //     text: this.state.text,
-  //     question: this.state.question,
-  //   })
-  //     .then(() => {
-  //       // set the form to it's initial state (empty input fields)
-  //       this.setState({
-  //         title: '',
-  //         text: '',
-  //         question: '',
-  //       })
-  //       this.props.getData();
-  //       // update the parent components state (in Projects) by calling getData()
-  //       // this.props.getData();
-  //     })
-  //     .catch(err => console.log(err))
-
-  // }
-
-
-
-
+  
   handleUpdateBlockSubmit = event => {
     event.preventDefault();
     const id = this.props.match.params.id;
