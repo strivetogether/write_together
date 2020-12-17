@@ -110,7 +110,7 @@ export default class BlockDetails extends Component {
     axios.put('/api/ideas/select', idea).then(response => {
       this.getBlock();
     }).catch(err => console.log(err))
-    
+
   }
 
   render() {
@@ -122,83 +122,134 @@ export default class BlockDetails extends Component {
     const owner = this.state.block.owner;
     if (user && user._id === owner) isOwner = true;
 
-    // console.log('LATEST LOG OF IDEAS', this.state)
     return (
-      <div>
-        <section className="blockdetails">
-          <div className="letter-wrapper"><div className="letter">
-            <h1>{this.state.title}</h1>
-            <Interweave content={this.state.text} />
-            <h2 className="questionmarker">My questions for the community</h2>
-            <Interweave content={this.state.question} />
-            {isOwner && (
-              <div>
-                <Button onClick={this.handleGoToEdit}>Edit</Button>
-                <span>&nbsp;</span>
-                <Button onClick={this.handleDeleteBlock}>Delete</Button>
-              </div>
-            )}
-            </div>
-            </div>
+      <div className="d-flex justify-content-around">
+
+        <div className="postitrow"><section className="postit">
+          <ul>
+            {/* {this.state.block.ideas.map(idea => { */}
+            {this.state.block.ideas.filter((idea, index) => index % 2 !== 0).map(idea => {
+              return (
+                <li key={idea._id} className={(idea.selected ? 'selectedidea' : 'notselected')}>
+                  <section>
+                    <Link to={`/ideas/${idea._id}`}>
+                      <span>{idea.owner.username}</span>
+                      <div><Markup content={idea.text} /></div>
+
+                      {idea.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t)}
+
+                    </Link>
+                  </section>
+                  {(isOwner && !idea.selected) && (
+                    <div>
+                      <Button onClick={() => this.handleToggleIdeaSelect(idea)} className="p-1 mt-2">I'll use this idea 💜</Button>
+                    </div>
+                  )}
+                  {(isOwner && idea.selected) && (
+                    <div>
+                      {/* when we call a function with an argument, we need the ()=> before */}
+                      <Button onClick={() => this.handleToggleIdeaSelect(idea)} className="p-1 mt-2">I won't use this idea</Button>
+                    </div>
+                  )}
+                </li>
+              )
+
+            })}
+          </ul>
         </section>
+        </div>
 
-<section className="postit">
-<ul>
-        {this.state.block.ideas.map(idea => {
-          return (
-            <li key={idea._id}>
-
-              <span>{idea.owner.username}</span>
-              <div><Markup content={idea.text} /></div>
-              <Link to={`/ideas/${idea._id}`}>Read more...</Link>
-              {idea.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t)}
-              {(isOwner & !idea.selected) && (
+        <div class="letterrow">
+          <section className="blockdetails">
+            <div className="letter-wrapper"><div className="letter letter-blockdetails">
+              <h1>{this.state.title}</h1>
+              <Interweave content={this.state.text} />
+              <h2 className="questionmarker">My questions for the community</h2>
+              <Interweave content={this.state.question} />
+              {isOwner && (
                 <div>
-                  <Button onClick={()=>this.handleToggleIdeaSelect(idea)}>I'll use this idea 💜</Button>
+                  <Button onClick={this.handleGoToEdit}>Edit</Button>
+                  <span>&nbsp;</span>
+                  <Button onClick={this.handleDeleteBlock}>Delete</Button>
                 </div>
               )}
-              {(isOwner & idea.selected) && (
-                <div>
-                 {/* when we call a function with an argument, we need the ()=> before */}
-                  <Button onClick={()=>this.handleToggleIdeaSelect(idea)}>Nevermind</Button>
-                </div>
-              )}
-            </li>
-          )
+            </div>
+            </div>
+          </section>
 
-        })}
-        </ul>
-        </section>
-
-        <Form onSubmit={this.handleSubmit}>
-
+          <section className="addidea">
+          <Form onSubmit={this.handleSubmit}>
           <Form.Group>
-            <Form.Label htmlFor='text'>Write an idea: </Form.Label>
-            <Editor
-              apiKey={process.env.REACT_APP_TINY_ID}
-              type="text"
-              name="ideaText"
-              value={this.state.ideaText}
-              id="ideaText"
-              initialValue="<p>This is the initial content of the editor</p>"
-              init={{
-                min_height: 300,
-                // height: '50vh',
-                fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
-                menubar: false,
-                plugins: [
-                  'advlist autolink lists link charmap print preview anchor',
-                  'searchreplace visualblocks code fullscreen',
-                  'paste code help wordcount'
-                ],
-                toolbar:
-                  'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |  fontsizeselect | help'
-              }}
-              onEditorChange={this.handleIdeaTextChange}
-            />
+          <Form.Label htmlFor='text'><h2 class="addidea">Share your idea</h2></Form.Label>
+          <Editor
+          apiKey={process.env.REACT_APP_TINY_ID}
+          type="text"
+          name="ideaText"
+          value={this.state.ideaText}
+          id="ideaText"
+          initialValue="<p>This is the initial content of the editor</p>"
+          init={{
+          min_height: 300,
+          // height: '50vh',
+          fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
+          menubar: false,
+          plugins: [
+          'advlist autolink lists link charmap print preview anchor',
+          'searchreplace visualblocks code fullscreen',
+          'paste code help wordcount'
+          ],
+          toolbar:
+          'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+          }}
+          onEditorChange={this.handleIdeaTextChange}
+          />
           </Form.Group>
           <Button type='submit'>Add an Idea</Button>
-        </Form>
+          </Form>
+          </section>
+        </div>
+
+        <div className="postitrow"><section className="postit">
+          <ul>
+            {/* {this.state.block.ideas.map(idea => { */}
+            {this.state.block.ideas.filter((idea, index) => index % 2 == 0).map(idea => {
+              return (
+                <li key={idea._id} className={(idea.selected ? 'selectedidea' : 'notselected')}>
+                  <section>
+                    <Link to={`/ideas/${idea._id}`}>
+                      <span>{idea.owner.username}</span>
+                      <div><Markup content={idea.text} /></div>
+
+                      {idea.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t)}
+
+                    </Link>
+                  </section>
+                  {(isOwner && !idea.selected) && (
+                    <div>
+                      <Button onClick={() => this.handleToggleIdeaSelect(idea)} className="p-1 mt-2">I'll use this idea 💜</Button>
+                    </div>
+                  )}
+                  {(isOwner && idea.selected) && (
+                    <div>
+                      {/* when we call a function with an argument, we need the ()=> before */}
+                      <Button onClick={() => this.handleToggleIdeaSelect(idea)} className="p-1 mt-2">I won't use this idea</Button>
+                    </div>
+                  )}
+                </li>
+              )
+
+            })}
+          </ul>
+        </section>
+        </div>
+
+
+        <div>
+
+        </div>
+
+
+
 
 
         {/* 
