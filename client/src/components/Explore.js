@@ -1,22 +1,37 @@
 import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
+import { Card, Button } from 'react-bootstrap';
+import Interweave from 'interweave';
 
 export default class Explore extends Component {
   
   render() {
+    
     return (
       <div>
-      <h1>Blockz</h1>
-      
+
+
+      <div className='d-flex justify-content-center flex-wrap'>
         {this.props.blocks.map(block => {
         return (
-          <div key={block._id}>
-            <h2>
-              <Link to={`/blocks/${block._id}`}>{block.title}</Link>
-            </h2>
-          </div>
+
+
+        <Card style={{ width: '18rem' }} className='m-3'>
+          <Card.Body>
+            <Card.Title>{block.title}</Card.Title>
+            <Card.Text>
+            <Interweave content={block.question} />
+            {block.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t)}
+            </Card.Text>
+            <Button><Link to={`/blocks/${block._id}`}>Go to block.</Link></Button>
+          </Card.Body>
+        </Card>
+        
+
+
         )
       })}
+      </div>
       </div>
     )
   }
