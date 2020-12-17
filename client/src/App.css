@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,600|Tulpen+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 body {
@@ -88,6 +88,11 @@ body {
 .letter-addblock {
   min-width: 500px;
 }
+
+.letter-blockdetails {
+min-width: 800px;
+}
+
 .letter:before, .letter:after {
   content: "";
   height: 98%;
@@ -115,11 +120,12 @@ body {
   background: url('questionmarkersquare.png');
   background-repeat: no-repeat;
 background-size: 100% 100%;
-padding: 1rem 1.4rem 1rem 1rem;
+padding: 1rem 1.4rem 1rem 2rem;
 position: relative;
 left: -6rem;
 }
 h2.questionmarker {
+  text-align: left;
   font-size: 1.6rem;
   line-height: 1.5;
   font-weight: bold;
@@ -134,7 +140,21 @@ h2.questionmarker {
 .postit ul,.postit li{
   list-style:none;
 }
-ul li a{
+.postit ul li{
+  text-decoration:none;
+  display:block;
+  width:10rem;
+  padding:1rem;
+  padding-bottom: 2rem;
+  -moz-transition:-moz-transform .15s linear;
+  -o-transition:-o-transform .15s linear;
+  -webkit-transition:-webkit-transform .15s linear;
+  transition:-webkit-transform .15s linear;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.postit ul li section{
   text-decoration:none;
   color:#333;
   background:#ffc;
@@ -150,33 +170,24 @@ ul li a{
   -webkit-transition:-webkit-transform .15s linear;
   transition:-webkit-transform .15s linear;
 }
-ul li{
+.postit ul li{
   margin:1rem;
   /*float:left;*/
 }
-ul li h2{
+.postit ul li h2{
   font-weight:bold;
   padding-bottom:1rem;
 }
-ul li p{
+.postit ul li p{
   font-family:"Reenie Beanie",arial,sans-serif;
 }
-ul li a{
+.postit ul li {
   -webkit-transform: rotate(-6deg);
   -o-transform: rotate(-6deg);
   -moz-transform:rotate(-6deg);
   transform: rotate(-6deg);
 }
-ul li:nth-child(3n) a{
-  -o-transform:rotate(-3deg);
-  -webkit-transform:rotate(-3deg);
-  -moz-transform:rotate(-3deg);
-  transform:rotate(-3deg);
-  position:relative;
-  top:-5px;
-  background:#ccf;
-}
-ul li a:hover,ul li a:focus{
+.postit ul li section:hover, .postit ul li section:focus{
   box-shadow:10px 10px 7px rgba(0,0,0,.7);
   -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
   -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
@@ -210,4 +221,39 @@ ul li a:hover,ul li a:focus{
 
 nav {
   font: 'Cormorant Garamond', serif;
+}
+
+.postit ul li section a, .postit ul li section a:hover, .postit ul li section a:focus {
+  color:#333;
+  text-decoration: none;
+}
+
+
+/* Changes to tinymce */
+.tox-tinymce {
+  width: 800px;
+  margin: 0 auto;
+  }
+
+
+/* Idea selection */
+.postit ul li.selectedidea  section{
+  background-color: #ccf;
+}
+.selectedidea::before {
+  content: '⭐';
+}
+
+/* Block Details page */
+.letterrow {
+  min-width: 820px;
+}
+
+section.addidea {
+  margin-top: 3rem;
+}
+
+/*Size of main picture*/
+.typewriter{
+  width: 500px;
 }
