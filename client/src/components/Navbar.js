@@ -17,15 +17,19 @@ export default class Navbar extends Component {
   render() {
     return (
 
-<Nav className='nav justify-content-end' bg='primary'>
+<Nav className='nav d-flex flex-row justify-content-between' bg='primary'>
 
-      <Nav.Brand>
+      <div>
+      <Nav.Brand className='home-padding'>
         <Link to='/'>Home</Link>
       </Nav.Brand>
+      </div>
 
+      
       {this.props.user ? (
-
-        <>              
+        
+        <> 
+          <div className='nav-padding'>             
           <Nav.Brand>
             <Link to='/explore'>Explore</Link>
           </Nav.Brand>
@@ -41,11 +45,14 @@ export default class Navbar extends Component {
           <Nav.Brand>
             <Link to='/' onClick={() => this.handleLogout(this.props)}>Logout</Link>
           </Nav.Brand>
+          </div>
         </>
+        
 
       ) : (
-
+        
           <>
+          <div className='nav-padding'>   
             <Nav.Brand>
               <Link to='/explore'>Explore</Link>
             </Nav.Brand>
@@ -58,8 +65,12 @@ export default class Navbar extends Component {
             <Nav.Brand>
               <Link to='/login'>Login</Link>
             </Nav.Brand>
+            </div>
           </>
+        
         )}
+
+        
 
 </Nav>
     )

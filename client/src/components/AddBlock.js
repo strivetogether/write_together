@@ -64,10 +64,12 @@ export default class AddBlock extends Component {
 
     return (
       
-        <div className='d-flex justify-content-center flex-wrap m-5 width: 600'>
+        <div className='d-flex justify-content-center flex-wrap m-5'>
+        <div className='letter-wrapper'>
+        <div className='letter letter-addblock'>
         <Form onSubmit={this.handleSubmit}>
 
-        <Form.Group>
+        <Form.Group className='margin-addblock'>
           <Form.Label htmlFor='title'>Title </Form.Label>
           <Form.Control
             type='text'
@@ -131,8 +133,10 @@ export default class AddBlock extends Component {
         />
         </Form.Group>
 
-        <Button type='submit' className='mb-4'>Add this block</Button>
+        <Button type='submit' className='margin-addblock'>Add this block</Button>
       </Form>
+      </div>
+      </div>
       </div>
     )
   }

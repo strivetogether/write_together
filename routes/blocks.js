@@ -121,15 +121,15 @@ router.delete('/delete/:id', (req, res, next) => {
 router.post('/details/:blockid/addidea', (req, res) => {
   const { text } = req.body;
   const owner = req.user._id;
-  //will this work with the blockid? let's find out!
   const parentBlock = req.params.blockid;
   const comments = [];
-  // const owner = req.user._id;
+  const selected = false;
   Idea.create({
     text,
     owner,
     parentBlock,
-    comments
+    comments,
+    selected
   })
     .then(idea => {
       Block.findByIdAndUpdate(parentBlock, { $push: { ideas: idea._id } }, { new: true }) // add idea to block

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Explore from './Explore'
+import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 export default class Home extends Component {
     render() {
@@ -16,7 +18,10 @@ export default class Home extends Component {
                 tempor nec feugiat nisl. Ut faucibus pulvinar elementum integer enim neque volutpat 
                 ac tincidunt.</p>
                 <div>
-                    <Explore blocks={this.props.blocks}/>
+                    {/* <Explore blocks={this.props.blocks}/> */}
+                    <Button type='submit'><Link to='/explore'>Help someone!</Link></Button>
+                    
+
                 </div>
             </div>
         )

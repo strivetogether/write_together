@@ -41,21 +41,53 @@ export default class UserBlocks extends Component {
         if (this.state.error) return <h1>{this.state.error}</h1>
         if (!this.state.ideas) return <h1>Loading...</h1>
 
-        return (
-            <div>
-            <h1>My ideas</h1>
+        // return (
+        //     <div>
+        //     <h1>My ideas</h1>
             
-              {this.state.ideas.map(idea => {
-              return (
-                <div key={idea._id}>
-                  <h2>
-                    <Link to={`/blocks/${idea._id}`}><Interweave content={idea.text}></Interweave></Link>
-                  </h2>
-                </div>
+        //       {this.state.ideas.map(idea => {
+        //       return (
+        //         <div key={idea._id}>
+        //           <h2>
+        //             <Link to={`/blocks/${idea._id}`}><Interweave content={idea.text}></Interweave></Link>
+        //           </h2>
+        //         </div>
+        //       )
+        //     })}
+        //     </div>
+        //   )
+
+
+          return (
+
+            <section className="postit">
+            <ul>
+            <h1>My ideas</h1>
+            {this.state.ideas.map(idea => {
+          return (
+            <li key={idea._id}>
+              <div><Link to={`/ideas/${idea._id}`}><Interweave content={idea.text}></Interweave></Link></div>
+            </li>
               )
-            })}
-            </div>
+            
+          
+
+        }
+        )
+        
+        }
+        </ul>
+        </section>
+
+
+
+
+
+
           )
+
+
+
 
     }
 }
