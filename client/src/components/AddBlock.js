@@ -64,9 +64,12 @@ export default class AddBlock extends Component {
 
     return (
       
+        <div className='d-flex justify-content-center flex-wrap m-5'>
+        <div className='letter-wrapper'>
+        <div className='letter letter-addblock'>
         <Form onSubmit={this.handleSubmit}>
 
-        <Form.Group>
+        <Form.Group className='margin-addblock'>
           <Form.Label htmlFor='title'>Title </Form.Label>
           <Form.Control
             type='text'
@@ -106,6 +109,7 @@ export default class AddBlock extends Component {
         <Form.Group>
           <Form.Label htmlFor='text'>Your question(s) and writing block(s) </Form.Label>
           <Editor
+          
           apiKey={process.env.REACT_APP_TINY_ID}
           type="text"
           name="question"
@@ -129,9 +133,11 @@ export default class AddBlock extends Component {
         />
         </Form.Group>
 
-        <Button type='submit'>Add this block</Button>
+        <Button type='submit' className='margin-addblock'>Add this block</Button>
       </Form>
-      
+      </div>
+      </div>
+      </div>
     )
   }
 }

@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+  font-family: Montserrat, serif;
+}
+
 .App {
   text-align: center;
 }
@@ -30,6 +37,8 @@
 
 .nav a {
   color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
 }
 
 .nav a:hover {
@@ -72,11 +81,12 @@
   background: #fff;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   margin: 26px auto 0;
-  max-width: 550px;
   min-height: 300px;
   padding: 3rem 2rem;
   position: relative;
-  width: 80%;
+}
+.letter-addblock {
+  min-width: 500px;
 }
 
 .letter-blockdetails {
@@ -189,6 +199,30 @@ h2.questionmarker {
   z-index:5;
 }
 
+/*AddBlock margin inside the letter*/
+.margin-addblock {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+/* Overwriting button color behaviour*/
+.btn {
+  color: white;
+}
+
+/*Giving some margin to Navbar elements*/
+.home-padding {
+  padding-left: 50px;
+}
+
+.nav-padding {
+  padding-right: 50px;
+}
+
+nav {
+  font: 'Cormorant Garamond', serif;
+}
+
 .postit ul li section a, .postit ul li section a:hover, .postit ul li section a:focus {
   color:#333;
   text-decoration: none;
@@ -217,4 +251,9 @@ h2.questionmarker {
 
 section.addidea {
   margin-top: 3rem;
+}
+
+/*Size of main picture*/
+.typewriter{
+  width: 500px;
 }
