@@ -142,12 +142,11 @@ export default class BlockDetails extends Component {
             </div>
         </section>
 
-
+<section className="postit">
+<ul>
         {this.state.block.ideas.map(idea => {
-          // get each idea's selected-status
-          console.log(idea.selected)
           return (
-            <div key={idea._id}>
+            <li key={idea._id}>
 
               <span>{idea.owner.username}</span>
               <div><Markup content={idea.text} /></div>
@@ -164,10 +163,12 @@ export default class BlockDetails extends Component {
                   <Button onClick={()=>this.handleToggleIdeaSelect(idea)}>Nevermind</Button>
                 </div>
               )}
-            </div>
+            </li>
           )
 
         })}
+        </ul>
+        </section>
 
         <Form onSubmit={this.handleSubmit}>
 
