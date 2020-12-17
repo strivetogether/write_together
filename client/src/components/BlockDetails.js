@@ -133,11 +133,11 @@ export default class BlockDetails extends Component {
                 <li key={idea._id} className={(idea.selected ? 'selectedidea' : 'notselected')}>
                   <section>
                     <Link to={`/ideas/${idea._id}`}>
-                      <span>{idea.owner.username}</span>
+                      <span className="username">{idea.owner.username}</span>
                       <div><Markup content={idea.text} /></div>
-
+<span class="date">
                       {idea.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t)}
-
+</span>
                     </Link>
                   </section>
                   {(isOwner && !idea.selected) && (
@@ -190,7 +190,6 @@ export default class BlockDetails extends Component {
           initialValue="<p>This is the initial content of the editor</p>"
           init={{
           min_height: 300,
-          // height: '50vh',
           fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
           menubar: false,
           plugins: [

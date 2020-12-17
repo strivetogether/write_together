@@ -100,7 +100,7 @@ export default class AddBlock extends Component {
              'paste code help wordcount'
            ],
            toolbar:
-             'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |  fontsizeselect | help'
+             'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
          }}
          onEditorChange={this.handleTextChange}
         />
@@ -127,13 +127,13 @@ export default class AddBlock extends Component {
              'paste code help wordcount'
            ],
            toolbar:
-             'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |  fontsizeselect | help'
+             'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
          }}
          onEditorChange={this.handleQuestionChange}
         />
         </Form.Group>
 
-        <Button type='submit' className='margin-addblock'>Add this block</Button>
+        <Button type='submit' className='margin-addblock'>Share what's blocking you</Button>
       </Form>
       </div>
       </div>

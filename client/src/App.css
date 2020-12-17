@@ -1,8 +1,22 @@
 @import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,400,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+
+
+/* Font-helper-functions */
+.fancy {
+  font-family: 'Cormorant Garamond', serif!important;
+}
+.plain {
+  font-family: 'Montserrat', sans-serif!important;
+}
+.sketchy {
+  font-family: 'Kalam', cursive!important;
+}
+
 
 body {
-  font-family: Montserrat, serif;
+  font-family: Montserrat, sans-serif;
 }
 
 .App {
@@ -179,7 +193,7 @@ h2.questionmarker {
   padding-bottom:1rem;
 }
 .postit ul li p{
-  font-family:"Reenie Beanie",arial,sans-serif;
+  font-family: 'Kalam', cursive!important;
 }
 .postit ul li {
   -webkit-transform: rotate(-6deg);
@@ -197,6 +211,15 @@ h2.questionmarker {
   transform: scale(1.25);
   position:relative;
   z-index:5;
+}
+
+.postit ul li section {
+  display: flex;
+align-items: center;
+}
+
+.postit .username, .postit .date {
+  font-size: .8rem;
 }
 
 /*AddBlock margin inside the letter*/
