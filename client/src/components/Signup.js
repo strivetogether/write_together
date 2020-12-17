@@ -40,8 +40,8 @@ export default class Signup extends Component {
   render() {
     return (
       <>
-        <h2>Signup</h2>
-        <Form onSubmit={this.handleSubmit}>
+
+        <Form className='registerField' onSubmit={this.handleSubmit}>
           <Form.Group>
             <Form.Label htmlFor='username'>Username: </Form.Label>
             <Form.Control

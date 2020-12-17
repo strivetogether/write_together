@@ -18,12 +18,12 @@ export default class Explore extends Component {
 
         <Card style={{ width: '18rem' }} className='m-3'>
           <Card.Body>
-            <Card.Title>{block.title}</Card.Title>
+            <Card.Title className='cormorant' style={{fontSize: 30}} >{block.title}</Card.Title>
             <Card.Text>
             <Interweave content={block.question} />
             {block.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t)}
             </Card.Text>
-            <Button><Link to={`/blocks/${block._id}`}>Go to block.</Link></Button>
+            <Button><Link to={`/blocks/${block._id}`}>Read more.</Link></Button>
           </Card.Body>
         </Card>
         
