@@ -63,7 +63,7 @@ export default class UserBlocks extends Component {
         return(
         
         <div>
-        <h1>My blocks</h1>
+        <h1 className='m-5'>My blocks</h1>
         <div className='d-flex justify-content-center flex-wrap'>
         {this.state.blocks.map(block => {
         return (
@@ -71,7 +71,7 @@ export default class UserBlocks extends Component {
 
         <Card style={{ width: '18rem' }} className='m-3'>
           <Card.Body>
-            <Card.Title><Link to={`/blocks/${block._id}`}>{block.title}</Link></Card.Title>
+            <Card.Title className='cormorant' style={{fontSize: 30}}><Link to={`/blocks/${block._id}`}>{block.title}</Link></Card.Title>
           </Card.Body>
         </Card>
         

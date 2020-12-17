@@ -17,7 +17,7 @@ export default class Navbar extends Component {
   render() {
     return (
 
-<Nav className='nav d-flex flex-row justify-content-between' bg='primary'>
+<Nav className='nav d-flex flex-row justify-content-between bg' bg='#db901b'>
 
       <div>
       <Nav.Brand className='home-padding'>

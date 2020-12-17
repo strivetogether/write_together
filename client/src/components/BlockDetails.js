@@ -162,7 +162,7 @@ export default class BlockDetails extends Component {
         <div class="letterrow">
           <section className="blockdetails">
             <div className="letter-wrapper"><div className="letter letter-blockdetails">
-              <h1>{this.state.title}</h1>
+              <h1 className='cormorant'>{this.state.title}</h1>
               <Interweave content={this.state.text} />
               <h2 className="questionmarker">My questions for the community</h2>
               <Interweave content={this.state.question} />

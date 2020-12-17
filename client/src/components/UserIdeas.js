@@ -62,7 +62,7 @@ export default class UserBlocks extends Component {
 
             <section className="postit">
             <ul>
-            <h1>My ideas</h1>
+            <h1 className='m-5'>My ideas</h1>
             {this.state.ideas.map(idea => {
           return (
             <li key={idea._id}>

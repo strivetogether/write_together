@@ -33,7 +33,7 @@ export default class Login extends Component {
         // successfully logged in
         // update the state for the parent component
         this.props.setUser(data);
-        this.props.history.push('/');
+        this.props.history.push('/dashboard');
       }
     });
   };
@@ -41,9 +41,8 @@ export default class Login extends Component {
   render() {
     return (
       <>
-        <h2>Login</h2>
-        <Form onSubmit={this.handleSubmit}>
-
+        <Form className='registerField' onSubmit={this.handleSubmit}>
+        
           <Form.Group>
             <Form.Label htmlFor='username'>Username: </Form.Label>
             <Form.Control
@@ -56,7 +55,7 @@ export default class Login extends Component {
           </Form.Group>
 
           <Form.Group>
-            <Form.Label htmlFor='password'>Password: </Form.Label>
+            <Form.Label  htmlFor='password'>Password: </Form.Label>
             <Form.Control
               type='password'
               name='password'

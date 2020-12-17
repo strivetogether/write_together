@@ -37,7 +37,7 @@ body {
 
 .nav a {
   color: white;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Cormorant', bold;
   font-size: 30px;
 }
 
@@ -253,7 +253,39 @@ section.addidea {
   margin-top: 3rem;
 }
 
-/*Size of main picture*/
-.typewriter{
+/*Buttons color*/
+.btn {
+  background-color: #db901b;
+  color: white;
+  border: 0px;
+}
+
+
+/* Size of main picture*/
+.typewriter {
   width: 500px;
+}
+
+/* Size of Login/Signup fields*/
+.registerField {
+  width: 400px;
+  margin: auto;
+  padding-top: 100px;
+  text-align: center;
+}
+
+/* Override navbar color*/
+.bg {
+ background-color:#db901b;
+}
+
+/*Fonts*/
+.cormorant {
+  font-family: 'Cormorant Garamont', bold;
+}
+
+.btn-primary:hover {
+  color: #333;
+  background-color:#895b11;
+  border-color: #0062cc;
 }
