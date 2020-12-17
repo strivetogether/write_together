@@ -50,7 +50,16 @@ router.get('/details/:ideaid', (req, res) => {
 })
 
 // toggle one idea's selected-status
-
+router.put('/select', (req, res) => {
+  console.log("this is the req.body console log from the api /select", req.body)
+  Idea.findByIdAndUpdate(req.body._id, { selected: !req.body.selected}).then(idea => {
+    console.log("/select", idea)
+    res.status(201).json(idea)
+  }).catch(err => {
+    console.log(err)
+    res.json(err)
+  })
+})
 
 
 

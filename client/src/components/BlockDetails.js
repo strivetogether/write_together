@@ -102,13 +102,15 @@ export default class BlockDetails extends Component {
       })
 
   }
-  
-//select which ideas you like
-handleToggleIdeaSelect = (idea) => {
-console.log("an idea was selected", idea)
-// this.setState(state => ({
-//   selected: !this.state.selected
-// }))
+
+  //select which ideas you like
+  handleToggleIdeaSelect = (idea) => {
+    console.log("an idea was selected", idea._id, idea.selected)
+    // axios request to update idea document's select-boolean
+    axios.put('/api/ideas/select', idea).then(response => {
+      this.getBlock();
+    }).catch(err => console.log(err))
+    
   }
 
   render() {
@@ -124,39 +126,44 @@ console.log("an idea was selected", idea)
     return (
       <div>
         <section className="blockdetails">
-          <Interweave content={this.state.title} />
-          <Interweave content={this.state.text} />
-          <Interweave content={this.state.question} />
-          {isOwner && (
-            <div>
-              <Button onClick={this.handleGoToEdit}>Edit</Button>
-              <span>&nbsp;</span>
-              <Button onClick={this.handleDeleteBlock}>Delete</Button>
+          <div className="letter-wrapper"><div className="letter">
+            <h1>{this.state.title}</h1>
+            <Interweave content={this.state.text} />
+            <h2 className="questionmarker">My questions for the community</h2>
+            <Interweave content={this.state.question} />
+            {isOwner && (
+              <div>
+                <Button onClick={this.handleGoToEdit}>Edit</Button>
+                <span>&nbsp;</span>
+                <Button onClick={this.handleDeleteBlock}>Delete</Button>
+              </div>
+            )}
             </div>
-          )}
+            </div>
         </section>
 
 
         {this.state.block.ideas.map(idea => {
-         // get each idea's selected-status
-         console.log(idea.selected)
+          // get each idea's selected-status
+          console.log(idea.selected)
           return (
             <div key={idea._id}>
-              
-                <span>{idea.owner.username}</span>
-                <div><Markup content={idea.text} /></div>
-                <Link to={`/ideas/${idea._id}`}>Read more...</Link>
-                {idea.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t)}
-                {(isOwner & !idea.selected ) && (
-            <div>
-              <Button onClick={this.handleToggleIdeaSelect}>I'll use this idea 💜</Button>
-            </div>
-          )}
-          {(isOwner & idea.selected ) && (
-            <div>
-              <Button onClick={this.handleToggleIdeaSelect(idea)}>Nevermind</Button>
-            </div>
-          )}
+
+              <span>{idea.owner.username}</span>
+              <div><Markup content={idea.text} /></div>
+              <Link to={`/ideas/${idea._id}`}>Read more...</Link>
+              {idea.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t)}
+              {(isOwner & !idea.selected) && (
+                <div>
+                  <Button onClick={()=>this.handleToggleIdeaSelect(idea)}>I'll use this idea 💜</Button>
+                </div>
+              )}
+              {(isOwner & idea.selected) && (
+                <div>
+                 {/* when we call a function with an argument, we need the ()=> before */}
+                  <Button onClick={()=>this.handleToggleIdeaSelect(idea)}>Nevermind</Button>
+                </div>
+              )}
             </div>
           )
 
