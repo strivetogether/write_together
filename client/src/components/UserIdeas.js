@@ -59,14 +59,22 @@ export default class UserBlocks extends Component {
 
 
           return (
-
+            <div>
+          <h1>My ideas</h1>
+            <div className="postitrow">
             <section className="postit">
-            <ul>
-            <h1 className='m-5'>My ideas</h1>
+            <ul className="d-flex flex-wrap">
+  
             {this.state.ideas.map(idea => {
           return (
             <li key={idea._id}>
-              <div><Link to={`/ideas/${idea._id}`}><Interweave content={idea.text}></Interweave></Link></div>
+            <section>
+              <div>
+              <Link to={`/ideas/${idea._id}`}>
+              <Interweave content={idea.text} ></Interweave>
+              </Link>
+              </div>
+              </section>
             </li>
               )
             
@@ -78,6 +86,8 @@ export default class UserBlocks extends Component {
         }
         </ul>
         </section>
+        </div>
+        </div>
 
 
 
