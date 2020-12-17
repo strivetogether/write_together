@@ -6,7 +6,8 @@ const ideaSchema = new Schema({
   comments: [],
   owner: { type: Schema.Types.ObjectId, ref: 'User' },
   parentBlock: { type: Schema.Types.ObjectId, ref: 'Block' },
-  creationDate: { type: Date, default: Date.now }
+  creationDate: { type: Date, default: Date.now },
+  selected: Boolean,
 });
 
 const Idea = mongoose.model('Idea', ideaSchema);

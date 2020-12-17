@@ -26,13 +26,16 @@ export default class BlockDetails extends Component {
     axios.get(`/api/blocks/details/${id}`)
       .then(response => {
         console.log('This is the response', response);
-        console.log("this is props", this.props);
+        console.log('The reponse.data.ideas', response.data.ideas);
+
         this.setState({
           title: response.data.title,
           text: response.data.text,
           question: response.data.question,
           block: response.data,
           ideas: response.data.ideas,
+
+
         })
       })
       .catch(err => {
@@ -100,6 +103,16 @@ export default class BlockDetails extends Component {
 
   }
 
+  //select which ideas you like
+  handleToggleIdeaSelect = (idea) => {
+    console.log("an idea was selected", idea._id, idea.selected)
+    // axios request to update idea document's select-boolean
+    axios.put('/api/ideas/select', idea).then(response => {
+      this.getBlock();
+    }).catch(err => console.log(err))
+    
+  }
+
   render() {
     // console.log('BLOCKSLOG', this.props)
     if (this.state.error) return <h1>{this.state.error}</h1>
@@ -113,32 +126,49 @@ export default class BlockDetails extends Component {
     return (
       <div>
         <section className="blockdetails">
-          <Interweave content={this.state.title} />
-          <Interweave content={this.state.text} />
-          <Interweave content={this.state.question} />
-          {isOwner && (
-            <div>
-              <Button onClick={this.handleGoToEdit}>Edit</Button>
-              <span>&nbsp;</span>
-              <Button onClick={this.handleDeleteBlock}>Delete</Button>
+          <div className="letter-wrapper"><div className="letter">
+            <h1>{this.state.title}</h1>
+            <Interweave content={this.state.text} />
+            <h2 className="questionmarker">My questions for the community</h2>
+            <Interweave content={this.state.question} />
+            {isOwner && (
+              <div>
+                <Button onClick={this.handleGoToEdit}>Edit</Button>
+                <span>&nbsp;</span>
+                <Button onClick={this.handleDeleteBlock}>Delete</Button>
+              </div>
+            )}
             </div>
-          )}
+            </div>
         </section>
 
-
+<section className="postit">
+<ul>
         {this.state.block.ideas.map(idea => {
           return (
-            <div key={idea._id}>
-              <h3>
-                <Markup content={idea.owner.username} />
-                <Markup content={idea.text} />
-                <Link to={`/ideas/${idea._id}`}>Read more...</Link>
-                {idea.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t)}
-              </h3>
-            </div>
+            <li key={idea._id}>
+
+              <span>{idea.owner.username}</span>
+              <div><Markup content={idea.text} /></div>
+              <Link to={`/ideas/${idea._id}`}>Read more...</Link>
+              {idea.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t)}
+              {(isOwner & !idea.selected) && (
+                <div>
+                  <Button onClick={()=>this.handleToggleIdeaSelect(idea)}>I'll use this idea 💜</Button>
+                </div>
+              )}
+              {(isOwner & idea.selected) && (
+                <div>
+                 {/* when we call a function with an argument, we need the ()=> before */}
+                  <Button onClick={()=>this.handleToggleIdeaSelect(idea)}>Nevermind</Button>
+                </div>
+              )}
+            </li>
           )
 
         })}
+        </ul>
+        </section>
 
         <Form onSubmit={this.handleSubmit}>
 
