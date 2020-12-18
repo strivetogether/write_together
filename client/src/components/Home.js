@@ -26,7 +26,7 @@ export default class Home extends Component {
                 <div>
                 
                     {/* <Explore blocks={this.props.blocks}/> */}
-                    <Button className='bg' type='submit'><Link to='/explore'>Help someone!</Link></Button>
+                    <Button className='btn-lg bg' type='submit'><Link to='/explore'>Help someone!</Link></Button>
                 </div>
             </div>
             <div>

@@ -128,7 +128,7 @@ export default class BlockDetails extends Component {
         <div className="postitrow"><section className="postit">
           <ul>
             {/* {this.state.block.ideas.map(idea => { */}
-            {this.state.block.ideas.filter((idea, index) => index % 2 !== 0).map(idea => {
+            {this.state.block.ideas.filter((idea, index) => index % 2 === 0).map(idea => {
               return (
                 <li key={idea._id} className={(idea.selected ? 'selectedidea' : 'notselected')}>
                   <section>
@@ -211,7 +211,7 @@ export default class BlockDetails extends Component {
         <div className="postitrow"><section className="postit">
           <ul>
             {/* {this.state.block.ideas.map(idea => { */}
-            {this.state.block.ideas.filter((idea, index) => index % 2 == 0).map(idea => {
+            {this.state.block.ideas.filter((idea, index) => index % 2 !== 0).map(idea => {
               return (
                 <li key={idea._id} className={(idea.selected ? 'selectedidea' : 'notselected')}>
                   <section>
@@ -241,15 +241,6 @@ export default class BlockDetails extends Component {
           </ul>
         </section>
         </div>
-
-
-        <div>
-
-        </div>
-
-
-
-
 
         {/* 
           Another way to do it is adding block and accesing it directly.

@@ -3,17 +3,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
 
 
-/* Font-helper-functions */
-.fancy {
-  font-family: 'Cormorant Garamond', serif!important;
-}
-.plain {
-  font-family: 'Montserrat', sans-serif!important;
-}
-.sketchy {
-  font-family: 'Kalam', cursive!important;
-}
-
 
 body {
   font-family: Montserrat, sans-serif;
@@ -49,16 +38,7 @@ body {
   color: #61dafb;
 }
 
-.nav a {
-  color: white;
-  font-family: 'Cormorant', bold;
-  font-size: 30px;
-}
 
-.nav a:hover {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.8);
-}
 
 .projects-container {
   display: flex;
@@ -216,24 +196,32 @@ h2.questionmarker {
 .postit ul li section {
   display: flex;
 align-items: center;
+justify-content: center;
 }
 
-.postit .username, .postit .date {
+.postit .username, 
+.postit .date,
+.card .username,
+.card .date
+{
   font-size: .8rem;
 }
 
-/*AddBlock margin inside the letter*/
+.postit ul li section a, .postit ul li section a:hover, .postit ul li section a:focus {
+  color:#333;
+  text-decoration: none;
+}
+
+
+
+/* AddBlock margin inside the letter */
 .margin-addblock {
   margin-top: 50px;
   margin-bottom: 50px;
 }
 
-/* Overwriting button color behaviour*/
-.btn {
-  color: white;
-}
 
-/*Giving some margin to Navbar elements*/
+/* nav bar elements*/
 .home-padding {
   padding-left: 50px;
 }
@@ -246,10 +234,25 @@ nav {
   font: 'Cormorant Garamond', serif;
 }
 
-.postit ul li section a, .postit ul li section a:hover, .postit ul li section a:focus {
-  color:#333;
-  text-decoration: none;
+.nav a {
+  color: #333;
+  font-family: 'Montserrat','Cormorant Garamond', sans-serif;
+  font-size: 30px;
 }
+
+.nav a:hover {
+  text-decoration: none;
+  color: rgba(51, 51, 51, 0.8);
+}
+
+.navbar-light .navbar-brand{
+  border: 2px dotted #db901b;
+}
+
+.navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {
+  border: 2px dotted #333;
+}
+
 
 
 /* Changes to tinymce */
@@ -269,7 +272,7 @@ nav {
 
 /* Block Details page */
 .letterrow {
-  min-width: 820px;
+  width: 860px;
 }
 
 section.addidea {
@@ -277,10 +280,13 @@ section.addidea {
 }
 
 /*Buttons color*/
+
+
 .btn {
   background-color: #db901b;
-  color: white;
+  color: #333;
   border: 0px;
+  margin: .4rem;
 }
 
 
@@ -307,8 +313,48 @@ section.addidea {
   font-family: 'Cormorant Garamont', bold;
 }
 
-.btn-primary:hover {
-  color: #333;
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active, 
+.btn-primary:visited,
+.btn-primary:not(:disabled):not(.disabled):active {
+  color:white;
   background-color:#895b11;
-  border-color: #0062cc;
+  border-color: #895b11;
+}
+.btn-primary:focus, 
+.btn:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus {
+   box-shadow: 0 0 0 0.2rem rgba(255,255,255, 0.7);
+}
+
+a {
+  color: #333;
+}
+
+a:hover {
+  color:white;
+  text-decoration: none;
+}
+
+.userblocks .card a:hover {
+  color: #895B11;
+  font-weight: bold;
+}
+
+.editblock-title {
+    width: 800px;
+    margin: 0 auto;
+    
+}
+
+/* Font-helper-functions */
+.fancy {
+  font-family: 'Cormorant Garamond', serif!important;
+}
+.plain {
+  font-family: 'Montserrat', sans-serif!important;
+}
+.sketchy {
+  font-family: 'Kalam', cursive!important;
 }

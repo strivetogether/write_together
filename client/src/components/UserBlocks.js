@@ -44,34 +44,18 @@ export default class UserBlocks extends Component {
         if (this.state.error) return <h1>{this.state.error}</h1>
         if (!this.state.blocks) return <h1>Loading...</h1>
 
-        // return (
-        //     <div>
-        //     <h1>My blocks</h1>
-            
-        //       {this.state.blocks.map(block => {
-        //       return (
-        //         <div key={block._id}>
-        //           <h2>
-        //             <Link to={`/blocks/${block._id}`}>{block.title}</Link>
-        //           </h2>
-        //         </div>
-        //       )
-        //     })}
-        //     </div>
-        //   )
-
         return(
         
-        <div>
+        <div className="userblocks">
         <h1 className='m-5'>My blocks</h1>
         <div className='d-flex justify-content-center flex-wrap'>
         {this.state.blocks.map(block => {
         return (
 
 
-        <Card style={{ width: '18rem' }} className='m-3'>
+        <Card style={{ width: '18rem' }} className='m-3 shadow'>
           <Card.Body>
-            <Card.Title className='cormorant' style={{fontSize: 30}}><Link to={`/blocks/${block._id}`}>{block.title}</Link></Card.Title>
+            <Card.Title className='fancy' style={{fontSize: 30}}><Link to={`/blocks/${block._id}`}>{block.title}</Link></Card.Title>
           </Card.Body>
         </Card>
         
