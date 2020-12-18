@@ -217,7 +217,6 @@ justify-content: center;
 /* AddBlock margin inside the letter */
 .margin-addblock {
   margin-top: 50px;
-  margin-bottom: 50px;
 }
 
 
@@ -278,6 +277,11 @@ nav {
 section.addidea {
   margin-top: 3rem;
 }
+
+/* start page*/
+.homewrapper {
+max-width: 1200px;
+margin: 3rem auto; }
 
 /*Buttons color*/
 

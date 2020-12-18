@@ -10,7 +10,7 @@ export default class Explore extends Component {
     return (
       <div>
 
-
+<h1 className="p-3">Everyone's questions, let's dive in!</h1>
       <div className='d-flex justify-content-center flex-wrap'>
         {this.props.blocks.map(block => {
         return (
