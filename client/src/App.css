@@ -199,7 +199,11 @@ align-items: center;
 justify-content: center;
 }
 
-.postit .username, .postit .date {
+.postit .username, 
+.postit .date,
+.card .username,
+.card .date
+{
   font-size: .8rem;
 }
 
@@ -282,6 +286,7 @@ section.addidea {
   background-color: #db901b;
   color: #333;
   border: 0px;
+  margin: .4rem;
 }
 
 
@@ -311,13 +316,16 @@ section.addidea {
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active, 
-.btn-primary:visited {
+.btn-primary:visited,
+.btn-primary:not(:disabled):not(.disabled):active {
   color:white;
   background-color:#895b11;
   border-color: #895b11;
 }
-.btn-primary:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255,255,255 0.7);
+.btn-primary:focus, 
+.btn:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus {
+   box-shadow: 0 0 0 0.2rem rgba(255,255,255, 0.7);
 }
 
 a {
