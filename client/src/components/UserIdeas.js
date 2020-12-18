@@ -60,7 +60,7 @@ export default class UserBlocks extends Component {
 
           return (
             <div>
-          <h1>My ideas</h1>
+          <h2>My ideas</h2>
             <div className="postitrow">
             <section className="postit">
             <ul className="d-flex flex-wrap">
