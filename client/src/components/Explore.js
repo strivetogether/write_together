@@ -16,8 +16,8 @@ export default class Explore extends Component {
         return (
 
 
-        <Card style={{ width: '18rem' }} className='m-3'>
-          <Card.Body>
+        <Card key={block._id} style={{ width: '18rem' }} className='m-3 shadow'>
+          <Card.Body className="d-flex flex-column justify-content-between">
             <Card.Title className='cormorant' style={{fontSize: 30}} >{block.title}</Card.Title>
             <Card.Text>
             <Interweave content={block.question} />

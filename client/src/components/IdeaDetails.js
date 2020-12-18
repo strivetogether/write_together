@@ -13,6 +13,7 @@ export default class IdeaDetails extends Component {
     comments: '',
     owner: '',
     parentBlock: '',
+    creationDate: ''
   }
 
   getIdea = () => {
@@ -25,7 +26,8 @@ export default class IdeaDetails extends Component {
           text: response.data.text,
           comments: response.data.comments,
           owner: response.data.owner,
-          parentBlock: response.data.parentBlock
+          parentBlock: response.data.parentBlock,
+          creationDate: response.data.creationDate
         })
       })
       .catch(err => {
@@ -70,14 +72,14 @@ export default class IdeaDetails extends Component {
     let allowedToDelete = false;
     const user = this.props.user._id;
     const owner = this.state.owner._id;
+    const date = this.state.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t);
     if (user === owner) allowedToDelete = true;
 
-    console.log('user is', this.props.user._id)
-    console.log('owner is', this.state.owner._id)
-    // console.log('IdeaDetails state', this.state)
+ 
     return (
       <div>
             <h3>
+            {date}
               <Markup content={this.state.owner.username} />
               <Markup content={this.state.text} />
             </h3>

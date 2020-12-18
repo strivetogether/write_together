@@ -101,6 +101,7 @@ export default class EditBlock extends Component {
             name='title'
             value={this.state.title}
             onChange={this.handleChange}
+            className="editblock-title"
           />
         </Form.Group>
         

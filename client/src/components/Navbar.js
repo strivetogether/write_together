@@ -20,7 +20,7 @@ export default class Navbar extends Component {
 <Nav className='nav d-flex flex-row justify-content-between bg' bg='#db901b'>
 
       <div>
-      <Nav.Brand className='home-padding'>
+      <Nav.Brand>
         <Link to='/'>Home</Link>
       </Nav.Brand>
       </div>
