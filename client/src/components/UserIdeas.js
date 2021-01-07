@@ -57,14 +57,15 @@ export default class UserBlocks extends Component {
         //     </div>
         //   )
 
-
+  console.log("ideas:", this.state.ideas) 
+  // we still need to access each block that the ideas belong to so that we can use it to display the blocks' titles above the ideas
           return (
             <div>
           <h2>My ideas</h2>
             <div className="postitrow">
             <section className="postit">
             <ul className="d-flex flex-wrap">
-  
+
             {this.state.ideas.map(idea => {
           return (
             <li key={idea._id}>
