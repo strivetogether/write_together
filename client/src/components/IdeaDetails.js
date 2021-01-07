@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Markup } from 'interweave';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 
 export default class IdeaDetails extends Component {
@@ -19,7 +20,7 @@ export default class IdeaDetails extends Component {
     const id = this.props.match.params.id;
     axios.get(`/api/ideas/details/${id}`)
       .then(response => {
-        console.log('This is the response', response);
+        console.log('This is the response', response.data.parentBlock);
         this.setState({
           idea: response.data,
           text: response.data.text,
@@ -72,20 +73,31 @@ export default class IdeaDetails extends Component {
     const owner = this.state.owner._id;
     if (user === owner) allowedToDelete = true;
 
-    console.log('user is', this.props.user._id)
-    console.log('owner is', this.state.owner._id)
+    console.log('props user is', this.props.user._id)
+    console.log('state owner is', this.state.owner._id)
     // console.log('IdeaDetails state', this.state)
-    return (
-      <div>
-            <h3>
-              <Markup content={this.state.owner.username} />
-              <Markup content={this.state.text} />
-            </h3>
-            {allowedToDelete && (
-              <Button variant='danger' onClick={this.deleteIdea}>Delete</Button>
-            )}
-              
-      </div>
-    )
+
+    if (allowedToDelete) {
+      return (
+        <div>
+    
+              <h3>
+                <Link to={`/dashboard`}><Markup content={this.state.owner.username} /></Link>
+                <Markup content={this.state.text} />
+              </h3>
+                <Button variant='danger' onClick={this.deleteIdea}>Delete</Button>                
+        </div>
+      )
+    } else {
+      return (
+        <div>
+              <h3>
+                <Link to={`/dashboard/${owner}`}><Markup content={this.state.owner.username} /></Link>
+                <Markup content={this.state.text} />
+              </h3>             
+        </div>
+      )
+    }
+
   }
 }

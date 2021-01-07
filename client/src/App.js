@@ -15,6 +15,7 @@ import BlockDetails from './components/BlockDetails';
 import EditBlock from './components/EditBlock';
 import IdeaDetails from './components/IdeaDetails';
 import Dashboard from './components/Dashboard';
+import OtherUserDashboard from './components/OtherUserDashboard';
 import Home from './components/Home';
 
 
@@ -153,6 +154,13 @@ class App extends React.Component {
           path='/dashboard'
           render={props => <Dashboard user={this.state.user} setUser={this.setUser} {...props} />}
         />
+
+        <Route
+          exact
+          path='/dashboard/:id'
+          render={props => <OtherUserDashboard user={this.state.user} setUser={this.setUser} {...props} />}
+        />
+
         {/* <AddBlock /> */}
         {/* </Route> */}
       </div>
