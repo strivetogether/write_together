@@ -13,24 +13,48 @@ export default class UserBlocks extends Component {
     }
 
     getAllUserIdeas = () => {
-        const id = this.props.user._id;
-        console.log('DASHBOARD ID LOG', this.props.user._id);
-        axios.get(`/api/ideas/userideas/${id}`)
+        let id = this.props.user._id;
+        const owner = this.props.match.params.id
+
+        // console.log('DASHBOARD ID LOG', this.props.user._id);
+
+        if (!owner) {        
+          axios.get(`/api/ideas/userideas/${id}`)
           .then(response => {
-            console.log('IDEAS RESPONSE', response);
+            // console.log('IDEAS RESPONSE', response);
             this.setState({
               block: response.data,
               ideas: response.data,
             })
           })
           .catch(err => {
-            console.log(err.response)
+            // console.log(err.response)
             if (err.response.status === 404) {
               this.setState({
                 error: 'Something went wrong'
               })
             }
           })
+
+        } else if (owner && id !== owner) {
+        id = this.props.match.params.id
+        axios.get(`/api/ideas/userideas/${id}`)
+          .then(response => {
+            // console.log('IDEAS RESPONSE', response);
+            this.setState({
+              block: response.data,
+              ideas: response.data,
+            })
+          })
+          .catch(err => {
+            // console.log(err.response)
+            if (err.response.status === 404) {
+              this.setState({
+                error: 'Something went wrong'
+              })
+            }
+          })
+      }
       }
 
       componentDidMount = () => {
@@ -57,47 +81,63 @@ export default class UserBlocks extends Component {
         //     </div>
         //   )
 
-
-          return (
-            <div>
-          <h1>My ideas</h1>
-            <div className="postitrow">
-            <section className="postit">
-            <ul className="d-flex flex-wrap">
-  
-            {this.state.ideas.map(idea => {
-          return (
-            <li key={idea._id}>
-            <section>
+          const owner = this.props.match.params.id
+          if (!owner){ 
+            return (
               <div>
-              <Link to={`/ideas/${idea._id}`}>
-              <Interweave content={idea.text} ></Interweave>
-              </Link>
-              </div>
-              </section>
-            </li>
-              )
-            
-          
-
-        }
-        )
-        
-        }
-        </ul>
-        </section>
-        </div>
-        </div>
-
-
-
-
-
-
+              <h1>My ideas</h1>
+              <div className="postitrow">
+              <section className="postit">
+              <ul className="d-flex flex-wrap">
+    
+              {this.state.ideas.map(idea => {
+            return (
+              <li key={idea._id}>
+              <section>
+                <div>
+                <Link to={`/ideas/${idea._id}`}>
+                <Interweave content={idea.text} ></Interweave>
+                </Link>
+                </div>
+                </section>
+              </li>
+                )
+          }
+          )        
+          }
+          </ul>
+          </section>
+          </div>
+          </div>
           )
-
-
-
-
-    }
+          } else {
+            return (
+              <div>
+              <h1>{owner} ideas</h1>
+              <div className="postitrow">
+              <section className="postit">
+              <ul className="d-flex flex-wrap">
+    
+              {this.state.ideas.map(idea => {
+            return (
+              <li key={idea._id}>
+              <section>
+                <div>
+                <Link to={`/ideas/${idea._id}`}>
+                <Interweave content={idea.text} ></Interweave>
+                </Link>
+                </div>
+                </section>
+              </li>
+                )
+          }
+          )        
+          }
+          </ul>
+          </section>
+          </div>
+          </div>
+          )
+          }
+      }
 }

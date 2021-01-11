@@ -14,9 +14,10 @@ export default class Dashboard extends Component {
     }
 
       render() {
+        console.log('CHECKING THE OWNER', this.props.user)
         return (
             <div>
-                <h2>This is the OTHER user dashboard</h2>
+                <h2>`This is the ${this.props.owner} user dashboard`</h2>
               <UserBlocks owner={this.props.owner}  {...this.props} />
               <UserIdeas owner={this.props.owner}  {...this.props} />
             </div>
