@@ -11,7 +11,8 @@ export default class UserBlocks extends Component {
         block: null,
         error: null,
         blocks:[],
-        ideas:[]
+        ideas:[],
+        username: ''
     }
     
     getAllUserBlocks = () => {
@@ -58,14 +59,32 @@ export default class UserBlocks extends Component {
               })
             }
           })
-
         }
+      }
+
+      getUsername = () => {
+        const userid = this.props.match.params.id
+        axios.get(`/api/blocks/dashboard/${userid}`)
+          .then(response => {
+            console.log('THIS RESPONSE IS THE GOOOD ONE', response)
+            this.setState({
+              username: response.data.username,
+            })
+          })
+          .catch(err => {
+            // console.log(err.response)
+            if (err.response.status === 404) {
+              this.setState({
+                error: 'Something went wrong'
+              })
+            }
+          })
 
       }
 
       componentDidMount = () => {
       this.getAllUserBlocks();
-        
+      this.getUsername();        
       }
 
       // componentDidMount = () => {
@@ -94,7 +113,7 @@ export default class UserBlocks extends Component {
         //     })}
         //     </div>
         //   )
-        
+
         const owner = this.props.match.params.id
         if (!owner) {
         return(       
@@ -116,7 +135,7 @@ export default class UserBlocks extends Component {
       } else {
         return (       
           <div>
-          <h1 className='m-5'>`{owner} blocks`</h1>
+          <h1 className='m-5'>{this.state.username}'s blocks</h1>
           <div className='d-flex justify-content-center flex-wrap'>
           {this.state.blocks.map(block => {
           return (

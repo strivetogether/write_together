@@ -114,6 +114,17 @@ router.delete('/delete/:id', (req, res, next) => {
     })
 });
 
+//find user's username through their ID
+router.get('/dashboard/:userid', (req,res) => {
+  User.findById(req.params.userid)
+  .then(username => {
+    res.status(200).json(username);
+  })
+  .catch(err => {
+    res.json(err);
+  })
+});
+
 
 ///////
 

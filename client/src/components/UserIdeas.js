@@ -9,7 +9,8 @@ export default class UserBlocks extends Component {
     state = {
         block: null,
         error: null,
-        ideas:[]
+        ideas:[],
+        username: ''
     }
 
     getAllUserIdeas = () => {
@@ -57,8 +58,29 @@ export default class UserBlocks extends Component {
       }
       }
 
+      getUsername = () => {
+        const userid = this.props.match.params.id
+        axios.get(`/api/blocks/dashboard/${userid}`)
+          .then(response => {
+            console.log('THIS RESPONSE IS THE GOOOD ONE', response)
+            this.setState({
+              username: response.data.username,
+            })
+          })
+          .catch(err => {
+            // console.log(err.response)
+            if (err.response.status === 404) {
+              this.setState({
+                error: 'Something went wrong'
+              })
+            }
+          })
+
+      }
+
       componentDidMount = () => {
         this.getAllUserIdeas();
+        this.getUsername();  
       }
 
       render() {
@@ -113,7 +135,7 @@ export default class UserBlocks extends Component {
           } else {
             return (
               <div>
-              <h1>{owner} ideas</h1>
+              <h1>{this.state.username}'s ideas</h1>
               <div className="postitrow">
               <section className="postit">
               <ul className="d-flex flex-wrap">

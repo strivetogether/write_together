@@ -5,21 +5,13 @@ import axios from 'axios';
 
 export default class Dashboard extends Component {
 
-    state = {
-        block: null,
-        error: null,
-        blocks:[],
-        ideas:[],
-        owner: '',
-    }
-
       render() {
         console.log('CHECKING THE OWNER', this.props.user)
         return (
             <div>
-                <h2>`This is the ${this.props.owner} user dashboard`</h2>
-              <UserBlocks owner={this.props.owner}  {...this.props} />
-              <UserIdeas owner={this.props.owner}  {...this.props} />
+                <h2>`This is the other user's dashboard`</h2>
+              <UserBlocks  {...this.props} />
+              <UserIdeas   {...this.props} />
             </div>
           )
 
