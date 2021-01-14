@@ -4,7 +4,7 @@ Overcome writer's block within the help of a community: share your own block and
 
 <img width="1280" alt="screenshot displaying the main view of the app, a stuck of paper with the witer's block on it, and some post-it notes with ideas from other users surrounding it" src="https://user-images.githubusercontent.com/42493985/104588463-b3ea5b00-5668-11eb-89ac-7981a0ab3bd2.png">
 
-- Working demo: strive-together.herokuapp.com/
+- Working demo: http://strive-together.herokuapp.com
 
 ## Setup
 
