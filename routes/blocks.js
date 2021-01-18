@@ -37,8 +37,6 @@ router.post('/', (req, res) => {
       User.findByIdAndUpdate(owner, { $push: { blocks: block._id } }, { new: true })
         .then(user => {
           res.status(201).json({ user, block });
-          //We can send only one argument
-          // In our response we will have response.data.user and response.data.block
         })
     })
     .catch(err => {
@@ -146,13 +144,9 @@ router.post('/details/:blockid/addidea', (req, res) => {
     .then(idea => {
       Block.findByIdAndUpdate(parentBlock, { $push: { ideas: idea._id } }, { new: true }) // add idea to block
         .then(block => {
-          console.log("this is a block right now", block)
-          //   console.log("this is block.owner right now", block.owner);
           User.findByIdAndUpdate(block.owner, { $push: { ideas: idea._id } }, { new: true }) // add idea's id to owner
             .then(user => {
               res.status(201).json({ idea });
-              //We can send only one argument
-              // In our response we will have response.data.user and response.data.block
             })
         })
     })

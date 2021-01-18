@@ -52,6 +52,7 @@ export default class Signup extends Component {
               id='username'
             />
           </Form.Group>
+
           <Form.Group>
             <Form.Label htmlFor='password'>Password: </Form.Label>
             <Form.Control
@@ -62,6 +63,7 @@ export default class Signup extends Component {
               id='password'
             />
           </Form.Group>
+          
           {this.state.message && (
             <Alert variant='danger'>{this.state.message}</Alert>
           )}

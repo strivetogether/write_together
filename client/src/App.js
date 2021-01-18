@@ -3,10 +3,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import { Route, Redirect } from 'react-router-dom';
-// import Projects from './components/Projects';
-// import ProjectDetails from './components/ProjectDetails';
 import Signup from './components/Signup';
-// import Login from './components/Login';
 import Navbar from './components/Navbar';
 import AddBlock from './components/AddBlock';
 import Login from './components/Login';
@@ -19,15 +16,11 @@ import OtherUserDashboard from './components/OtherUserDashboard';
 import Home from './components/Home';
 
 
-
-
-
 class App extends React.Component {
 
   state = {
     user: this.props.user,
     blocks: [],
-    // ideas: [],
   }
 
   setUser = user => {
@@ -47,15 +40,6 @@ class App extends React.Component {
       })
       .catch(err => console.log(err))
 
-    // axios.get('/api/ideas/allideas')
-    //   .then(response => {
-    //     // put them into the state
-    //     this.setState({
-    //       ideas: response.data
-    //     })
-    //   })
-    //   .catch(err => console.log(err))
-
   }
 
   componentDidMount() {
@@ -63,7 +47,7 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log('GET IDEAS DATA', this.state)
+
     return (
       <div className="App">
 
@@ -78,24 +62,6 @@ class App extends React.Component {
         else return <Redirect to='/signup' />
         }}
         />
-        
-
-        {/* <Route
-          exact
-          path='/addblock'
-          render={props => {
-            if (this.state.user) return <AddBlock getData={this.getData} {...props} />
-            else return <Redirect to='/signup' />
-          }}
-        /> */}
-{/* We're not using this one, right?
-        <Route
-          exact
-          path='/blockdetails'
-          render={props => {
-            return <BlockDetails {...props} />
-          }}
-        /> */}
 
         <Route
           exact
@@ -160,9 +126,6 @@ class App extends React.Component {
           path='/dashboard/:id'
           render={props => <OtherUserDashboard user={this.state.user} setUser={this.setUser} {...props} />}
         />
-
-        {/* <AddBlock /> */}
-        {/* </Route> */}
       </div>
     )
   }

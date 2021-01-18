@@ -19,23 +19,22 @@ export default class IdeaDetails extends Component {
   getIdea = () => {
     const id = this.props.match.params.id;
     axios.get(`/api/ideas/details/${id}`)
-      .then(response => {
-        console.log('This is the response', response.data.parentBlock);
+    .then(response => {
+      this.setState({
+        idea: response.data,
+        text: response.data.text,
+        comments: response.data.comments,
+        owner: response.data.owner,
+        parentBlock: response.data.parentBlock
+      })
+    })
+    .catch(err => {
+      if (err.response.status === 404) {
         this.setState({
-          idea: response.data,
-          text: response.data.text,
-          comments: response.data.comments,
-          owner: response.data.owner,
-          parentBlock: response.data.parentBlock
+          error: 'Sorry - Idea Not found 🤷‍♀️ 🤷‍♂️'
         })
-      })
-      .catch(err => {
-        if (err.response.status === 404) {
-          this.setState({
-            error: 'Sorry - Idea Not found 🤷‍♀️ 🤷‍♂️'
-          })
-        }
-      })
+      }
+    })
   }
 
   componentDidMount = () => {
@@ -48,16 +47,16 @@ export default class IdeaDetails extends Component {
     .then(() => {
       this.props.getData();
     })
-      .then(() => {
-        this.props.history.push(`/blocks/${this.state.parentBlock}`);
-      })
-      .catch(err => {
-        if (err.response.status === 404) {
-          this.setState({
-            error: 'Something went wrong'
-          })
-        }
-      })
+    .then(() => {
+      this.props.history.push(`/blocks/${this.state.parentBlock}`);
+    })
+    .catch(err => {
+      if (err.response.status === 404) {
+        this.setState({
+          error: 'Something went wrong'
+        })
+      }
+    })
 
   }
 
@@ -73,9 +72,6 @@ export default class IdeaDetails extends Component {
     const owner = this.state.owner._id;
     if (user === owner) allowedToDelete = true;
 
-    console.log('props user is', this.props.user._id)
-    console.log('state owner is', this.state.owner._id)
-    // console.log('IdeaDetails state', this.state)
 
     if (allowedToDelete) {
       return (
@@ -98,6 +94,5 @@ export default class IdeaDetails extends Component {
         </div>
       )
     }
-
   }
 }
