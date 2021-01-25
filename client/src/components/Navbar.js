@@ -21,7 +21,7 @@ export default class Navbar extends Component {
       bg='#db901b'>
 
       <div>
-      <Nav.Brand className='home-padding'>
+      <Nav.Brand>
         <Link to='/'>Home</Link>
       </Nav.Brand>
       </div>

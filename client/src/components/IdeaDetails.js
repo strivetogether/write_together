@@ -14,6 +14,7 @@ export default class IdeaDetails extends Component {
     comments: '',
     owner: '',
     parentBlock: '',
+    creationDate: ''
   }
 
   getIdea = () => {
@@ -70,8 +71,8 @@ export default class IdeaDetails extends Component {
     let allowedToDelete = false;
     const user = this.props.user._id;
     const owner = this.state.owner._id;
+    const date = this.state.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t);
     if (user === owner) allowedToDelete = true;
-
 
     if (allowedToDelete) {
       return (

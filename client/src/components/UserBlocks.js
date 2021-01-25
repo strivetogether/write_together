@@ -94,6 +94,7 @@ export default class UserBlocks extends Component {
 
         {this.state.blocks.map(block => {
 
+
         return (
         <Card style={{ width: '18rem' }} className='m-3'>
           <Card.Body>

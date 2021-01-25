@@ -6,7 +6,7 @@ import demo from '../demo.png';
 export default class Home extends Component {
     render() {
         return (
-            <div className='d-flex justify-content-between align-items-center m-5'>
+            <div className='d-flex justify-content-between align-items-center homewrapper'>
             <div className='text-left'>
                 <h1>Overcome your writer's block &mdash; together!</h1>
                 <br />
