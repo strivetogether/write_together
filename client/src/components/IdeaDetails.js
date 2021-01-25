@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Markup } from 'interweave';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 
 export default class IdeaDetails extends Component {
@@ -19,24 +20,22 @@ export default class IdeaDetails extends Component {
   getIdea = () => {
     const id = this.props.match.params.id;
     axios.get(`/api/ideas/details/${id}`)
-      .then(response => {
-        console.log('This is the response', response);
+    .then(response => {
+      this.setState({
+        idea: response.data,
+        text: response.data.text,
+        comments: response.data.comments,
+        owner: response.data.owner,
+        parentBlock: response.data.parentBlock
+      })
+    })
+    .catch(err => {
+      if (err.response.status === 404) {
         this.setState({
-          idea: response.data,
-          text: response.data.text,
-          comments: response.data.comments,
-          owner: response.data.owner,
-          parentBlock: response.data.parentBlock,
-          creationDate: response.data.creationDate
+          error: 'Sorry - Idea Not found 🤷‍♀️ 🤷‍♂️'
         })
-      })
-      .catch(err => {
-        if (err.response.status === 404) {
-          this.setState({
-            error: 'Sorry - Idea Not found 🤷‍♀️ 🤷‍♂️'
-          })
-        }
-      })
+      }
+    })
   }
 
   componentDidMount = () => {
@@ -49,16 +48,16 @@ export default class IdeaDetails extends Component {
     .then(() => {
       this.props.getData();
     })
-      .then(() => {
-        this.props.history.push(`/blocks/${this.state.parentBlock}`);
-      })
-      .catch(err => {
-        if (err.response.status === 404) {
-          this.setState({
-            error: 'Something went wrong'
-          })
-        }
-      })
+    .then(() => {
+      this.props.history.push(`/blocks/${this.state.parentBlock}`);
+    })
+    .catch(err => {
+      if (err.response.status === 404) {
+        this.setState({
+          error: 'Something went wrong'
+        })
+      }
+    })
 
   }
 
@@ -75,19 +74,26 @@ export default class IdeaDetails extends Component {
     const date = this.state.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t);
     if (user === owner) allowedToDelete = true;
 
- 
-    return (
-      <div>
-            <h3>
-            {date}
-              <Markup content={this.state.owner.username} />
-              <Markup content={this.state.text} />
-            </h3>
-            {allowedToDelete && (
-              <Button variant='danger' onClick={this.deleteIdea}>Delete</Button>
-            )}
-              
-      </div>
-    )
+    if (allowedToDelete) {
+      return (
+        <div>
+    
+              <h3>
+                <Link to={`/dashboard`}><Markup content={this.state.owner.username} /></Link>
+                <Markup content={this.state.text} />
+              </h3>
+                <Button variant='danger' onClick={this.deleteIdea}>Delete</Button>                
+        </div>
+      )
+    } else {
+      return (
+        <div>
+              <h3>
+                <Link to={`/dashboard/${owner}`}><Markup content={this.state.owner.username} /></Link>
+                <Markup content={this.state.text} />
+              </h3>             
+        </div>
+      )
+    }
   }
 }

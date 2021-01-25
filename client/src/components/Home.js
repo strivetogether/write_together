@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import Explore from './Explore'
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
-import demo from './demo.png';
+import demo from '../demo.png';
 
 export default class Home extends Component {
     render() {
@@ -23,14 +22,13 @@ export default class Home extends Component {
                 skills to use and help other fellow writers with their own struggles. 
                 </p>
                 <br />
+
                 <div>
-                
-                    {/* <Explore blocks={this.props.blocks}/> */}
-                    <Button className='btn-lg bg' type='submit'><Link to='/explore'>Help someone!</Link></Button>
+                    <Button className='bg' type='submit'><Link to='/explore'>Help someone!</Link></Button>
                 </div>
             </div>
-            <div>
 
+            <div>
                 <img className='typewriter' src={demo} alt='happy people around typewriter'/>
             </div>
                 

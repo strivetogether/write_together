@@ -49,12 +49,13 @@ export default class BlockDetails extends Component {
   }
 
   componentDidMount = () => {
-    this.getBlock();
+      this.getBlock();
   }
 
   handleSubmit = event => {
     event.preventDefault();
     const id = this.props.match.params.id;
+
     axios.post(`/api/blocks/details/${id}/addidea`, {
       text: this.state.ideaText,
     })
@@ -74,12 +75,10 @@ export default class BlockDetails extends Component {
   //tinymce's own method
   handleIdeaTextChange = (ideaText, editor) => {
     this.setState({ ideaText: ideaText });
-    // console.log('Content was updated:', text);
   }
 
 
   handleGoToEdit = () => {
-    // console.log("this is the handleGoToEdit", this.props.match.params)
     this.props.history.push(
       `/blocks/${this.props.match.params.id}/editblock`);
   }
@@ -105,7 +104,6 @@ export default class BlockDetails extends Component {
 
   //select which ideas you like
   handleToggleIdeaSelect = (idea) => {
-    console.log("an idea was selected", idea._id, idea.selected)
     // axios request to update idea document's select-boolean
     axios.put('/api/ideas/select', idea).then(response => {
       this.getBlock();
@@ -114,7 +112,6 @@ export default class BlockDetails extends Component {
   }
 
   render() {
-    // console.log('BLOCKSLOG', this.props)
     if (this.state.error) return <h1>{this.state.error}</h1>
     if (!this.state.block) return <h1>Loading...</h1>
     let isOwner = false;
@@ -127,34 +124,34 @@ export default class BlockDetails extends Component {
 
         <div className="postitrow"><section className="postit">
           <ul>
-            {/* {this.state.block.ideas.map(idea => { */}
-            {this.state.block.ideas.filter((idea, index) => index % 2 === 0).map(idea => {
+
+            {this.state.block.ideas.filter((idea, index) => index % 2 !== 0).map(idea => {
+
               return (
                 <li key={idea._id} className={(idea.selected ? 'selectedidea' : 'notselected')}>
                   <section>
                     <Link to={`/ideas/${idea._id}`}>
                       <span className="username">{idea.owner.username}</span>
-                      <div><Markup content={idea.text} /></div>
-<span class="date">
-                      {idea.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t)}
-</span>
+                        <div><Markup content={idea.text} /></div>
+                          <span class="date">
+                            {idea.creationDate.split("T")[0].split("-").reduce((t, v) => t = v + "/" + t)}
+                          </span>
                     </Link>
                   </section>
+
                   {(isOwner && !idea.selected) && (
                     <div>
                       <Button onClick={() => this.handleToggleIdeaSelect(idea)} className="p-1 mt-2">I'll use this idea 💜</Button>
                     </div>
                   )}
+
                   {(isOwner && idea.selected) && (
                     <div>
-                      {/* when we call a function with an argument, we need the ()=> before */}
                       <Button onClick={() => this.handleToggleIdeaSelect(idea)} className="p-1 mt-2">I won't use this idea</Button>
                     </div>
                   )}
                 </li>
-              )
-
-            })}
+              )})}
           </ul>
         </section>
         </div>
@@ -166,6 +163,7 @@ export default class BlockDetails extends Component {
               <Interweave content={this.state.text} />
               <h2 className="questionmarker">My questions for the community</h2>
               <Interweave content={this.state.question} />
+
               {isOwner && (
                 <div>
                   <Button onClick={this.handleGoToEdit}>Edit</Button>
@@ -173,7 +171,8 @@ export default class BlockDetails extends Component {
                   <Button onClick={this.handleDeleteBlock}>Delete</Button>
                 </div>
               )}
-            </div>
+              
+              </div>
             </div>
           </section>
 
@@ -210,10 +209,11 @@ export default class BlockDetails extends Component {
 
         <div className="postitrow"><section className="postit">
           <ul>
-            {/* {this.state.block.ideas.map(idea => { */}
-            {this.state.block.ideas.filter((idea, index) => index % 2 !== 0).map(idea => {
+            {this.state.block.ideas.filter((idea, index) => index % 2 === 0).map(idea => {
+              
               return (
                 <li key={idea._id} className={(idea.selected ? 'selectedidea' : 'notselected')}>
+
                   <section>
                     <Link to={`/ideas/${idea._id}`}>
                       <span>{idea.owner.username}</span>
@@ -223,14 +223,15 @@ export default class BlockDetails extends Component {
 
                     </Link>
                   </section>
+
                   {(isOwner && !idea.selected) && (
                     <div>
                       <Button onClick={() => this.handleToggleIdeaSelect(idea)} className="p-1 mt-2">I'll use this idea 💜</Button>
                     </div>
                   )}
+
                   {(isOwner && idea.selected) && (
                     <div>
-                      {/* when we call a function with an argument, we need the ()=> before */}
                       <Button onClick={() => this.handleToggleIdeaSelect(idea)} className="p-1 mt-2">I won't use this idea</Button>
                     </div>
                   )}
@@ -241,12 +242,8 @@ export default class BlockDetails extends Component {
           </ul>
         </section>
         </div>
-
-        {/* 
-          Another way to do it is adding block and accesing it directly.
-          This way we don't have to set up the objeckt keys on the state.
-          <h1>{this.state.block.title}</h1>
-          <p>{this.state.block.text}</p> */}
+        <div>
+        </div>
       </div>
     )
 

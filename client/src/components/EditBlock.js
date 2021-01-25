@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { Markup } from 'interweave';
-import Interweave from 'interweave';
 import { Form, Button } from 'react-bootstrap';
 import { Editor } from '@tinymce/tinymce-react';
 
@@ -33,8 +30,6 @@ export default class EditBlock extends Component {
           title: response.data.title,
           text: response.data.text,
           question: response.data.question,
-          // block: response.data,
-          // ideas: response.data.ideas,
         })
       })
       .catch(err => {
@@ -61,11 +56,9 @@ export default class EditBlock extends Component {
           title: response.data.title,
           question: response.question,
           description: response.data.question,
-          // editForm: false
         })
       })
       .then(() => {
-        // const id = this.props.match.params.id;
         this.props.history.push(`/blocks/${id}/`);
       })
       .catch(err => {
@@ -76,12 +69,10 @@ export default class EditBlock extends Component {
     //tinymce's own method
     handleTextChange = (text, editor) => {     
       this.setState({ text: text});
-      // console.log('Content was updated:', text);
     }
 
     handleQuestionChange = (question, editor) => {
       this.setState({ question: question});
-      // console.log('Content was updated:', text);
     }
     componentDidMount = () => {
       this.getBlock();
@@ -115,8 +106,7 @@ export default class EditBlock extends Component {
           id="text"
           initialValue=""
           init={{
-            min_height: 300,
-            // height: '50vh',
+           min_height: 300,
            fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
            menubar: false,
            plugins: [
@@ -141,8 +131,7 @@ export default class EditBlock extends Component {
           id="question"
           initialValue=""
           init={{
-            min_height: 300,
-            // height: '50vh',
+           min_height: 300,
            fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
            menubar: false,
            plugins: [
@@ -162,5 +151,4 @@ export default class EditBlock extends Component {
       
     )
   }
-
 }
