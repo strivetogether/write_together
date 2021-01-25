@@ -8,6 +8,7 @@ import { logout } from '../services/auth';
 export default class Navbar extends Component {
 
   handleLogout = props => {
+    // console.log(props);
     logout().then(() => {
       props.setUser(null);
     })
@@ -16,9 +17,7 @@ export default class Navbar extends Component {
   render() {
     return (
 
-      <Nav 
-      className='nav d-flex flex-row justify-content-between bg' 
-      bg='#db901b'>
+<Nav className='nav d-flex flex-row justify-content-between bg' bg='#db901b'>
 
       <div>
       <Nav.Brand>
@@ -71,7 +70,9 @@ export default class Navbar extends Component {
         
         )}
 
-      </Nav>
+        
+
+</Nav>
     )
   }
 }
