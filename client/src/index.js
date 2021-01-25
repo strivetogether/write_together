@@ -7,6 +7,9 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 
+//We might need it
+// import * as serviceWorker from './serviceWorker';
+
 axios.get('/api/auth/loggedin')
   .then(response => {
     const user = response.data;
@@ -17,6 +20,10 @@ axios.get('/api/auth/loggedin')
       document.getElementById('root')
     );
   });
+
+
+
+
 
 
 // If you want to start measuring performance in your app, pass a function
