@@ -7,12 +7,24 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 
-ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root')
-);
+//We might need it
+// import * as serviceWorker from './serviceWorker';
+
+axios.get('/api/auth/loggedin')
+  .then(response => {
+    const user = response.data;
+    ReactDOM.render(
+      <BrowserRouter>
+        <App user={user}/>
+      </BrowserRouter>,
+      document.getElementById('root')
+    );
+  });
+
+
+
+
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

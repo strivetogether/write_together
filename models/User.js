@@ -1,15 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const blockSchema = new Schema({
+const userSchema = new Schema({
   username: String,
   password: String,
-  email: String,
   profilePicture: String,
-  owner: String,
-  blocks: [],
-  ideas: [],
+  blocks: [ { type: Schema.Types.ObjectId, ref: 'Block' } ],
+  ideas: [ { type: Schema.Types.ObjectId, ref: 'Idea' } ],
 });
 
-const Block = mongoose.model('Block', blockSchema);
-module.exports = Block;
+const User = mongoose.model('User', userSchema);
+module.exports = User;

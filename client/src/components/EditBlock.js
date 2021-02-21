@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { Markup } from 'interweave';
+import Interweave from 'interweave';
+import { Form, Button } from 'react-bootstrap';
 import { Editor } from '@tinymce/tinymce-react';
 
 
-
-
-export default class AddBlock extends Component {
-
+export default class EditBlock extends Component {
   state = {
     title: '',
     text: '',
     question: '',
-    addedBlockId: '',
   }
   
 
@@ -23,30 +22,55 @@ export default class AddBlock extends Component {
       [name]: value
     });
   };
-
-  handleSubmit = event => {
+  
+  getBlock = () => {
+    const id = this.props.match.params.id;
+    console.log('ID LOG', id);
+    axios.get(`/api/blocks/details/${id}`)
+      .then(response => {
+        console.log('This is the response', response);
+        this.setState({
+          title: response.data.title,
+          text: response.data.text,
+          question: response.data.question,
+          // block: response.data,
+          // ideas: response.data.ideas,
+        })
+      })
+      .catch(err => {
+        console.log(err.response)
+        if (err.response.status === 404) {
+          this.setState({
+            error: 'Sorry - Block Not found 🤷‍♀️ 🤷‍♂️'
+          })
+        }
+      })
+  }
+  
+  handleUpdateBlockSubmit = event => {
     event.preventDefault();
-    // console.log(this.state);
-    axios.post('/api/blocks', {
+    const id = this.props.match.params.id;
+    axios.put(`/api/blocks/${id}/editblock`, {
       title: this.state.title,
       text: this.state.text,
-      question: this.state.question,
+      question: this.state.question
     })
       .then(response => {
-        // set the form to it's initial state (empty input fields)
         this.setState({
-          title: '',
-          text: '',
-          question: '',
+          block: response.data,
+          title: response.data.title,
+          question: response.question,
+          description: response.data.question,
+          // editForm: false
         })
-        this.props.getData();
-        const id = response.data.block._id;
-        this.props.history.push(`blocks/${id}`);
-        // update the parent components state (in Projects) by calling getData()
-        // this.props.getData();
       })
-      .catch(err => console.log(err))
-
+      .then(() => {
+        // const id = this.props.match.params.id;
+        this.props.history.push(`/blocks/${id}/`);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
     //tinymce's own method
@@ -59,17 +83,17 @@ export default class AddBlock extends Component {
       this.setState({ question: question});
       // console.log('Content was updated:', text);
     }
-
+    componentDidMount = () => {
+      this.getBlock();
+    }
+  
   render() {
 
     return (
       
-        <div className='d-flex justify-content-center flex-wrap m-5'>
-        <div className='letter-wrapper'>
-        <div className='letter letter-addblock'>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleUpdateBlockSubmit}>
 
-        <Form.Group className='margin-addblock'>
+        <Form.Group>
           <Form.Label htmlFor='title'><h2 className="pt-3">Title</h2></Form.Label>
           <Form.Control
             type='text'
@@ -77,6 +101,7 @@ export default class AddBlock extends Component {
             name='title'
             value={this.state.title}
             onChange={this.handleChange}
+            className="editblock-title"
           />
         </Form.Group>
         
@@ -88,7 +113,7 @@ export default class AddBlock extends Component {
           name="text"
           value={this.state.text}
           id="text"
-          initialValue="<p>This is the initial content of the editor</p>"
+          initialValue=""
           init={{
             min_height: 300,
             // height: '50vh',
@@ -100,22 +125,21 @@ export default class AddBlock extends Component {
              'paste code help wordcount'
            ],
            toolbar:
-             'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+             'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |  fontsizeselect | help'
          }}
          onEditorChange={this.handleTextChange}
         />
         </Form.Group>
 
         <Form.Group>
-          <Form.Label htmlFor='text'><h2 className="pt-3">Your question(s) and writing block(s)</h2> </Form.Label>
+          <Form.Label htmlFor='text'><h2 className="pt-3">YYour question(s) and writing block(s)</h2></Form.Label>
           <Editor
-          
           apiKey={process.env.REACT_APP_TINY_ID}
           type="text"
           name="question"
           value={this.state.question}
           id="question"
-          initialValue="<p>This is the initial content of the editor</p>"
+          initialValue=""
           init={{
             min_height: 300,
             // height: '50vh',
@@ -127,17 +151,16 @@ export default class AddBlock extends Component {
              'paste code help wordcount'
            ],
            toolbar:
-             'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+             'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat |  fontsizeselect | help'
          }}
          onEditorChange={this.handleQuestionChange}
         />
         </Form.Group>
 
-        <Button type='submit' className='margin-addblock'>Share what's blocking you</Button>
+        <Button type='submit'>Update this block</Button>
       </Form>
-      </div>
-      </div>
-      </div>
+      
     )
   }
+
 }
