@@ -19,8 +19,6 @@ export default class UserBlocks extends Component {
         return response
       })
       .then((response) => {
-
-
         for (let i = 0; i < response.data.length; i++) {
           if (response.data[i].parentBlock === undefined || response.data[i].parentBlock === null) {
             response.data[i].parentBlock = { _id: "#", title: "Deleted Block" }
