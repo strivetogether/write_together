@@ -20,9 +20,15 @@ router.get('/allideas', (req, res, next) => {
 
 // get all specific user ideas
 router.get('/userideas/:userid', (req, res) => {
-
   Idea.find({owner: req.params.userid})
+  .populate('parentBlock')
     .then(idea => {
+      // trying out whether you can give something a value instead of null
+      // if (idea.parentBlock === null) {
+      //   idea.parentBlock = 'noBlockFound'
+      //   idea.parentBlock.title = '&nbsp;'
+      // }
+      // end of trying
       if (!idea ) {
         res.status(404).json(idea);
       } else {
@@ -33,6 +39,23 @@ router.get('/userideas/:userid', (req, res) => {
       res.json(err);
     })
 })
+
+// // get all specific user ideas >> before I populated the owner
+// router.get('/userideas/:userid', (req, res) => {
+
+//   Idea.find({owner: req.params.userid})
+//     .then(idea => {
+//       if (!idea ) {
+//         res.status(404).json(idea);
+//       } else {
+//         res.status(200).json(idea);
+//       }
+//     })
+//     .catch(err => {
+//       res.json(err);
+//     })
+// })
+
 
 // access one idea's details
 router.get('/details/:ideaid', (req, res) => {

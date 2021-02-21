@@ -30,7 +30,7 @@ export default class UserBlocks extends Component {
             console.log(err.response)
             if (err.response.status === 404) {
               this.setState({
-                error: 'Something went wrong'
+                error: 'Something went wrong when accessing all user blocks'
               })
             }
           })
@@ -47,13 +47,13 @@ export default class UserBlocks extends Component {
         return(
         
         <div className="userblocks">
-        <h1 className='m-5'>My blocks</h1>
+        <h2 className='m-5'>My blocks</h2>
         <div className='d-flex justify-content-center flex-wrap'>
         {this.state.blocks.map(block => {
         return (
 
 
-        <Card style={{ width: '18rem' }} className='m-3 shadow'>
+        <Card style={{ width: '18rem' }} className='m-3 shadow' key={block._id}>
           <Card.Body>
             <Card.Title className='fancy' style={{fontSize: 30}}><Link to={`/blocks/${block._id}`}>{block.title}</Link></Card.Title>
           </Card.Body>

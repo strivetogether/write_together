@@ -318,8 +318,11 @@ margin: 3rem auto; }
 }
 
 .btn-primary:hover,
+.btn-primary:hover a,
 .btn-primary:focus,
+.btn-primary:focus a,
 .btn-primary:active, 
+.btn-primary:active a,
 .btn-primary:visited,
 .btn-primary:not(:disabled):not(.disabled):active {
   color:white;
